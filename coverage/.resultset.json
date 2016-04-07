@@ -1,0 +1,91 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/Guest/Desktop/squad_two/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        1,
+        4,
+        null,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/models/profile.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/controllers/frontend_controller.rb": [
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/mailers/contact_mailer.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/controllers/about_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/Guest/Desktop/squad_two/app/controllers/users/omniauth_callbacks_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/Guest/Desktop/squad_two/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "timestamp": 1460064426
+  }
+}

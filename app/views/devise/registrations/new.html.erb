@@ -13,13 +13,13 @@
             <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
             <% end %><br />
-            <%= f.password_field :password, autocomplete: "off" %> <br>
+            <%= f.password_field :password, autocomplete: "off", id: "firstPassword" %> <br>
 
             <%= f.label :password_confirmation %><br>
-            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", id: "secondPassword" %>
 
             <div class="actions">
-              <%= f.submit "Sign up", class: "btn btn-primary" %>
+              <%= f.submit "Sign up", class: "btn btn-primary", id: "signUp" %>
             </div>
           <% end %>
         <%= render "devise/shared/links" %>

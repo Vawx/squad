@@ -1,7 +1,8 @@
-class ContactMailer < ApplicationMailer
+class ContactMailer < ActionMailer::Base
   default from: "altck8@gmail.com"
 
-  define_method :send_email do |user, to, subject|
-    mail(to: user.email, subject: subject)
+  def send_email( user, to, subject )
+    @user = user
+    mail(to: user.email, subject: subject )
   end
 end
