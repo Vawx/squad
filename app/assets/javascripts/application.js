@@ -15,3 +15,12 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$().ready(function() {
+  setTimeout(clearNotice, 1000);
+
+  function clearNotice( ) {
+    $('.notice').animate({opacity: '0'}, 1500);
+    $('.alert').animate({opacity: '0'}, 1500);
+  }
+});
