@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_one :profile
   after_create :create_profile
+  after_create :send_welcome_email
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -19,5 +20,10 @@ class User < ActiveRecord::Base
   private
   define_method :create_profile do
     self.create_profile!
+  end
+
+  define_method :send_welcome_email do
+    mail = ContactMailer.send_email self, "altck8@gmail.com", "Welcome to SQUAD!"
+    mail.deliver_now
   end
 end
