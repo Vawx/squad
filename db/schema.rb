@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407200526) do
+ActiveRecord::Schema.define(version: 20160407223302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bugs", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "project_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,10 +33,27 @@ ActiveRecord::Schema.define(version: 20160407200526) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "profiles_projects", force: :cascade do |t|
+    t.integer "profile_id"
+    t.integer "project_id"
+  end
+
+  add_index "profiles_projects", ["profile_id"], name: "index_profiles_projects_on_profile_id", using: :btree
+  add_index "profiles_projects", ["project_id"], name: "index_profiles_projects_on_project_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "admin_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "project_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,6 +72,7 @@ ActiveRecord::Schema.define(version: 20160407200526) do
     t.string   "username"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "project_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
