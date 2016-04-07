@@ -1,0 +1,10 @@
+
+<div class="container">
+  <div class="col-xs-6 col-xs-offset-3">
+    <div class="row form">
+      <h1><%= @project.name %></h1>
+
+      <h6 style="text-align:right;">Admin: <%= User.find( @project.admin_id ).email %></h6>
+    </div>
+  </div>
+</div>

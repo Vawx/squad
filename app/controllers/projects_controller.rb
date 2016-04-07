@@ -15,12 +15,12 @@ class ProjectsController < ApplicationController
   end
 
   define_method :create do
-    @project = current_user.profile.new project_params
-    @project.admin_id = current_user.profile.id
-    if @project.save?
+    @project = current_user.profile.projects.new project_params
+    @project.admin_id = current_user.id
+    if @project.save
       current_user.profile.projects.push @project
-      current_user.profile.profile.save
-      redirect_to profile_projects_path( current_user, @project )
+      current_user.profile.save
+      redirect_to profile_project_path( current_user, @project )
     else
 
     end
