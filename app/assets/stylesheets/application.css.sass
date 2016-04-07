@@ -1,0 +1,66 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets"
+@import "bootstrap"
+
+@import url(https://fonts.googleapis.com/css?family=Advent+Pro:400,600)
+@import url(https://fonts.googleapis.com/css?family=Oswald)
+@import url(https://fonts.googleapis.com/css?family=Exo+2:400,300,500,700)
+
+body
+  font-family: 'Exo 2', sans-serif
+  font-weight: 400
+  font-size: 18px
+
+.navbar-brand
+  font-family: 'Oswald', sans-serif
+  font-weight: bold
+  font-size: 52px
+
+.inner.cover
+  background-color: rgba(100,100,100,0.25)
+  padding: 20%
+
+.navbar
+  background-color: rgba(0,0,0,0)
+  border-color: rgba(0,0,0,0)
+
+.form
+  background-color: rgba(100,100,100,0.25)
+  border-radius: 12px
+  padding: 12px
+
+.btn
+  margin-top: 6px
+  font-family: 'Exo 2', sans-serif
+
+.github
+  color: white
+  background-color: #333333
+
+.github:hover
+  color: rgb(40,200,40)
+
+a
+  font-family: 'Advent Pro', sans-serif
+  font-weight: 600
+  color: rgb(30,50,200)
+  font-size: 18px
+
+h1
+  font-weight: 600
+  font-size: 52px
