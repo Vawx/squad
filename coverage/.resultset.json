@@ -18,6 +18,7 @@
         0,
         0,
         0,
+        0,
         null,
         null,
         null,
@@ -34,9 +35,19 @@
       ],
       "/Users/Guest/Desktop/squad_two/app/helpers/application_helper.rb": [
         1,
+        null,
+        null,
+        1,
+        0,
+        null,
         null
       ],
       "/Users/Guest/Desktop/squad_two/app/models/bug.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/models/pending_invite.rb": [
         1,
         1,
         null
@@ -47,9 +58,11 @@
         1,
         1,
         1,
+        null,
         null
       ],
       "/Users/Guest/Desktop/squad_two/app/models/project.rb": [
+        1,
         1,
         1,
         1,
@@ -67,6 +80,13 @@
         1,
         5,
         5,
+        5,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
         null,
         null
       ],
@@ -85,6 +105,66 @@
         null
       ],
       "/Users/Guest/Desktop/squad_two/app/controllers/about_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/Guest/Desktop/squad_two/app/controllers/admin_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/Guest/Desktop/squad_two/app/controllers/projects_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -110,6 +190,6 @@
         0
       ]
     },
-    "timestamp": 1460068442
+    "timestamp": 1460396596
   }
 }

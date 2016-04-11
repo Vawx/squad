@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
 
   it 'sends an email' do
     user = create(:user)
-    mail = ContactMailer.send_email user, 'altck8@gmail.com', 'rspec'
+    mail = ContactMailer.send_welcome_email user
     mail.deliver_now
     expect(ActionMailer::Base.deliveries.length).to be > 0
   end
