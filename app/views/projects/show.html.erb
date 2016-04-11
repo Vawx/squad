@@ -11,7 +11,7 @@
 
   <div class="col-xs-3 col-xs-offset-1">
     <% if is_admin?(current_user, @project)%>
-      <%= link_to "Admin", profile_project_admin_index_path(current_user.profile, @project), class: "btn btn-primary" %>
+      <%= link_to "Admin", profile_project_admin_index_path(current_user.profile, @project), id: "Admin", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

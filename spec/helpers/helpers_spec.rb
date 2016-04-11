@@ -13,7 +13,11 @@ define_method :login do
 end
 
 define_method :logout do
-  puts "2093;lisdafo0[9u23;lkdsaf09u23;lsadjf09u23r;lfsd]"
-  click_link 'LOUGOUTSON'
+  visit root_path
+  click_link 'logout'
   return true
+end
+
+define_method :open_page do
+  save_and_open_page
 end

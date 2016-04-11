@@ -5,7 +5,7 @@
       <h1 style="text-align:center;">New Project</h1>
       <%= form_for [current_user.profile, @project] do |f| %>
         <%= f.label :name %> <br>
-        <%= f.text_field :name %> <br>
+        <%= f.text_field :name, id: 'projectName' %> <br>
         <%= f.submit "Create", class: "btn btn-primary", style: "text-align:right;" %>
       <%end%>
     </div>

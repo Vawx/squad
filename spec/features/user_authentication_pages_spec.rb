@@ -6,4 +6,10 @@ describe 'the user authentication login path' do
     login
     expect(page).to have_content('Logout')
   end
+
+  it 'allows a user to sign out' do
+    visit root_path
+    logout
+    expect(page).to have_content('Login')
+  end
 end
