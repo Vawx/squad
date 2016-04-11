@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.email = auth.info.email
-      user.user_name = auth.info.email
+      user.username = auth.info.email
       user.password = Devise.friendly_token[0,20]
     end
   end
@@ -21,6 +21,16 @@ class User < ActiveRecord::Base
   private
   define_method :create_profile do
     self.create_profile!
+
+    PendingInvite.all.each do |pi|
+      if pi.invite_email == self.email
+        proj = Project.find(pi.project_id)
+        self.profile.projects.push proj
+        self.profile.save
+        PendingInvite.destroy(pi.id)
+        break
+      end
+    end
   end
 
   define_method :send_welcome_email do

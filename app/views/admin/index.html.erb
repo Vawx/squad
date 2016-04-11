@@ -27,10 +27,10 @@
     </div>
   </div>
 
-  <div class="col-xs-4 col-xs-offset-1">
+  <div class="">
     <h1>Project Users</h1>
     <% @project.profiles.each do |p| %>
-    <div class="form">
+    <div class="col-xs-4 col-xs-offset-1 userForm">
       <% if !is_admin?(User.find(p.user_id), @project) %>
         <div style="display:inline-block">
           <%= button_to "X", profile_project_path(current_user.profile, @project), class: "btn btn-primary btn-small-round danger"%>
