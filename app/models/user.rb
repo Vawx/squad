@@ -13,14 +13,14 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.email = auth.info.email
-      user.username = auth.info.email
+      user.username = auth.info.nickname
       user.password = Devise.friendly_token[0,20]
     end
   end
 
   private
   define_method :create_profile do
-    self.create_profile!
+    self.create_profile!({user_name: self.username})
 
     PendingInvite.all.each do |pi|
       if pi.invite_email == self.email
