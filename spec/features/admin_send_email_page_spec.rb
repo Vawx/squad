@@ -10,7 +10,7 @@ describe 'the admin send invite path' do
     click_link 'Admin'
     fill_in 'inviteAddress', with: "test@test.com"
     click_button 'Send Invite'
-    open_page
+    expect(PendingInvite.all.length).to eq(1)
   end
 end
 
