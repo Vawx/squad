@@ -1,0 +1,11 @@
+<% if @sending_message.length > 0 %>
+  <p class="alert alert-success"><strong><%= @sending_message %></strong></p>
+<%else%>
+  <p></p>
+<%end%>
+
+<div class="col-xs-4 col-xs-offset-5">
+  <%= link_to profile_project_admin_index_path(current_user.profile, @project), class: 'projectHeader' do %>
+    <h1>"Admin Panel"</h1>
+  <%end%>
+</div>

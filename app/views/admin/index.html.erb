@@ -1,17 +1,51 @@
-<% if @sending_error.length > 0 %>
-  <p class="alert alert-danger"><strong><%= @sending_error %> </strong></p>
-<%else%>
-  <p></p>
-<%end%>
+<div class="row">
+  <% if @sending_error.length > 0 %>
+    <p class="alert alert-danger"><strong><%= @sending_error %> </strong></p>
+  <%else%>
+    <p></p>
+  <%end%>
+</div>
 
-<div class="col-xs-10 col-xs-offset-1">
-  <h1>Admin Panel</h1>
-  <div class="form">
-    <h5>Send Invite:</h5>
-    <%= form_tag do %>
-      <label class="label label-default" for="">To:</label> <br>
-      <input type="email" name="inviteAddress" value="" id="inviteAddress"><br>
-      <%= button_to "Send Invite", admin_index_path %>
-    <%end%>
+<div class="row">
+  <% if @sending_message.length > 0 %>
+    <p class="alert alert-success"><strong><%= @sending_message %></strong></p>
+  <%else%>
+    <p></p>
+  <%end%>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 col-xs-offset-1">
+    <h1>Admin Panel</h1>
+    <div class="form">
+      <h5>Send Invite:</h5>
+      <%= form_tag do %>
+        <label class="label label-default" for="">To:</label> <br>
+        <input type="email" name="inviteAddress" value="" id="inviteAddress"><br>
+        <%= button_to "Send Invite", profile_project_admin_index_path(current_user.profile, @project), class: "btn btn-primary" %>
+      <%end%>
+    </div>
   </div>
+
+  <div class="col-xs-4 col-xs-offset-1">
+    <h1>Project Users</h1>
+    <% @project.profiles.each do |p| %>
+    <div class="form">
+      <% if !is_admin?(User.find(p.user_id), @project) %>
+        <div style="display:inline-block">
+          <%= button_to "X", profile_project_path(current_user.profile, @project), class: "btn btn-primary btn-small-round danger"%>
+        </div>
+      <%else%>
+        <p style="display:inline-block" class="adminText">[Admin]</p>
+      <%end%>
+      <span style="margin-left:12px;">
+        <%= User.find(p.user_id).email %>
+      </span>
+    </div>
+  </div>
+  <%end%>
+</div>
+
+<div class="row">
+
 </div>
