@@ -24,7 +24,11 @@
     <h2>Users</h2>
     <% @project.profiles.each do |pr| %>
       <p class="form">
-        <%=User.find(pr.user_id).email%> [<%= pr.user_name %>]
+        <% if is_admin?(User.find(pr.user_id), @project) %>
+          <span class="danger-text">[Admin]</span> <%=User.find(pr.user_id).email%> (<%= pr.user_name %>)
+        <%else%>
+          <%=User.find(pr.user_id).email%> (<%= pr.user_name %>)
+        <%end%>
       </p>
     <%end%>
   </div>

@@ -4,9 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to SQUAD <%= @user.email %>!</h1>
+    <h1>Welcome to SQUAD <%= @user.username %>!</h1>
     <p>
-      Your username is: <%= @user.email %>.<br>
+      Your username is: <%= @user.username %>.<br>
+    </p>
+    <p>
+      Your email is: <%= @user.email %>
     </p>
     <p>
       To login to the site, just follow this link: "URL".

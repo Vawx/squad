@@ -2,11 +2,11 @@
 <div class="container">
   <div class="col-xs-6 col-xs-offset-3">
     <div class="row form">
-      <h2>New Project</h2>
+      <h1 style="text-align:center;">New Project</h1>
       <%= form_for [current_user.profile, @project] do |f| %>
         <%= f.label :name %> <br>
         <%= f.text_field :name %> <br>
-        <%= f.submit "Create", class: "btn btn-primary" %>
+        <%= f.submit "Create", class: "btn btn-primary", style: "text-align:right;" %>
       <%end%>
     </div>
   </div>
