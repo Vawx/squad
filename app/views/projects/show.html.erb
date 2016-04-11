@@ -1,10 +1,25 @@
 
-<div class="container">
+<div class="row">
+  <div class="col-xs-3 col-xs-offset-1">
+    <h1><%= @project.name %></h1>
+    <% if is_admin?(current_user, @project)%>
+      <%= link_to "Admin", admin_index_path, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+
+</div>
+
+<div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <div class="row form">
-      <h1><%= @project.name %></h1>
-
-      <h6 style="text-align:right;">Admin: <%= User.find( @project.admin_id ).email %></h6>
+      <% if is_admin?(current_user, @project) %>
+        <h6 style="text-align:right;">Admin: You</h6>
+      <%else%>
+        <h6 style="text-align:right;">Admin: <%= User.find( @project.admin_id ).email %></h6>
+      <%end%>
     </div>
   </div>
 </div>

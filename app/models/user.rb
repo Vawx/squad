@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   define_method :send_welcome_email do
-    mail = ContactMailer.send_email self, "altck8@gmail.com", "Welcome to SQUAD!"
+    mail = ContactMailer.send_welcome_email self
     mail.deliver_now
   end
 end
