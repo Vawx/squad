@@ -21,3 +21,10 @@ end
 define_method :sop do
   save_and_open_page
 end
+
+define_method :login_create_project do
+  login
+  click_link 'projectsLink'
+  fill_in 'projectName', with: "Test Project"
+  click_button 'Create'
+end

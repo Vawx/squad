@@ -1,6 +1,8 @@
 require'simplecov'
 require 'capybara/poltergeist'
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  add_filter "app/controllers/users/"
+end
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|

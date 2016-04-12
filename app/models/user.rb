@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   after_create :create_profile
   after_create :send_welcome_email
 
+ # :nocov:
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
@@ -17,6 +18,7 @@ class User < ActiveRecord::Base
       user.password = Devise.friendly_token[0,20]
     end
   end
+  # :nocov:
 
   private
   define_method :create_profile do
