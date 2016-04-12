@@ -24,9 +24,9 @@
         null,
         1,
         1,
-        6,
+        8,
         null,
-        6,
+        8,
         0,
         0,
         0,
@@ -38,8 +38,8 @@
         null,
         null,
         1,
-        6,
-        6,
+        8,
+        8,
         null,
         null
       ],
@@ -120,20 +120,10 @@
         1,
         null
       ],
-      "/Users/Guest/Desktop/squad_two/app/mailers/contact_mailer.rb": [
+      "/Users/Guest/Desktop/squad_two/app/controllers/about_controller.rb": [
         1,
         1,
         null,
-        1,
-        7,
-        7,
-        7,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
         null,
         null
       ],
@@ -147,9 +137,26 @@
         1,
         null,
         1,
+        9,
         6,
-        4,
-        4,
+        6,
+        null,
+        null
+      ],
+      "/Users/Guest/Desktop/squad_two/app/mailers/contact_mailer.rb": [
+        1,
+        1,
+        null,
+        1,
+        9,
+        9,
+        9,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
         null,
         null
       ],
@@ -163,20 +170,20 @@
       "/Users/Guest/Desktop/squad_two/app/controllers/projects_controller.rb": [
         1,
         1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
         1,
         1,
         1,
         null,
         null,
+        null,
         1,
         1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        2,
         null,
         null,
         1,
@@ -246,13 +253,6 @@
         null,
         null
       ],
-      "/Users/Guest/Desktop/squad_two/app/controllers/about_controller.rb": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       "/Users/Guest/Desktop/squad_two/app/controllers/bug_controller.rb": [
         0,
         0,
@@ -317,6 +317,6 @@
         0
       ]
     },
-    "timestamp": 1460486581
+    "timestamp": 1460487319
   }
 }
