@@ -15,4 +15,18 @@ module ApplicationHelper
     return result
   end
 
+  # limits a string to x characters + 3 "..."
+  define_singleton_method :limit_chars do |word, limit|
+    result = ""
+    split = word.split('')
+    count = 0
+    split.each do |c|
+      if count < limit
+        result += c
+      end
+      count += 1
+    end
+    result += "..."
+    return result
+  end
 end

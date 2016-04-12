@@ -5,22 +5,31 @@
   <%= form_for [current_user.profile,@project,@issue] do |f| %>
     <div style="text-align:right;">
       <%= f.select :issue_type, ['Bug', 'Task'], { }, class: "issueType" %>
-      <%= f.select :profile_id, @profile_names, { }, class: "issueType" %>
+      <%= f.select :severity, ['Very Important', 'Important', 'Not Important'], { }, class: "issueType" %>
+      <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %>
+
     </div>
     <%= f.label :content, class: "label label-default" %> <br>
     <div class="bugdesc">
-      <%= f.text_area :content, class: "formarea", placeholder: "Give the most accurate description you can. If writing a bug, order each step with the most descriptive but smallest amount of text possible.
+      <textarea name="content_bug" class="formarea", placeholder="A bug contains the following five main parts:
 
-      1. Load 'Map_Name'
-      2. Move to world position, 293X, 134Y, 34Z
-      3. Jump behind crate.
+1. Summary line (short, sweet, summation of the problem)
+2. The Actual Result (a description of what happened; the problem)
+3. The Expected Result (what you thought should happen instead of the problem)
+4. Steps to Replicate (how someone else can make the problem happen too)
 
-      Result: Player character is stuck." %> <br>
+Make sure to select the severity and user this bug should go to above, in the dropdowns.
+
+Use the input fields below to link any images or video links." ></textarea> <br>
     </div>
     <div class="taskdesc" hidden>
-      <%= f.text_area :content, class: "formarea", placeholder: "Tasks should be as descriptive as they need to be. Try to give the person who will be working on the task as much information as possible to complete the task to the quality you are looking for.
+      <textarea class="formarea", name="content_task" placeholder="Tasks should be as descriptive as they need to be. Try to give the person who will be working on the task as much information as possible to complete the task to the quality you are looking for.
 
-Use outside resources to give more information, such as concept art, videos, examples, or screenshots." %> <br>
+Use outside resources to give more information, such as concept art, videos, examples, or screenshots.
+
+Make sure to select the severity and user this task should go to above, in the dropdowns.
+
+Use the input fields below to link any images or video links." ></textarea> <br>
     </div>
     <div class="youtubes">
       <div class="youtubediv">

@@ -21,8 +21,8 @@ class IssuesController < ApplicationController
     @project = Project.find(params[:project_id])
     @issue = @project.issues.new( issues_params )
     @issue.resources = youtube_links + "^" + imgur_links
-    @issue.profile_id = current_user.profile.id
     @issue.project_id = @project.id
+    @issue.content = ( params[:content_bug].length > 0 ) ? params[:content_bug] : params[:content_task]
     @issue.status = "Open"
     if @issue.save
       redirect_to profile_project_path(current_user.profile, @project)
@@ -33,6 +33,6 @@ class IssuesController < ApplicationController
 
   private
   define_method :issues_params do
-    params.require(:issue).permit( :issue_type, :content )
+    params.require(:issue).permit( :issue_type, :profile_id, :severity )
   end
 end

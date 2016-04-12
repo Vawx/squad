@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
 
   define_method :show do
     @project = Project.find params[:id]
+    @my_issues = @project.issues.where(profile_id: current_user.profile.id)
   end
 
   define_method :new do
