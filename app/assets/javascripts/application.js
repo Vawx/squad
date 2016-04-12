@@ -37,4 +37,17 @@ $().ready(function() {
       break;
     }
   });
+
+  // Issue divs for resources
+  $("#youtubes").click(function(){
+    var cloned = $('.youtubediv:first').clone( );
+    cloned[0].childNodes[3].remove( );
+    cloned.appendTo('.youtubes');
+  });
+
+  $("#imgurs").click(function() {
+    var cloned = $('.imgurdiv:first').clone( );
+    cloned[0].childNodes[3].remove( );
+    cloned.appendTo('.imgurs');
+  })
 });
