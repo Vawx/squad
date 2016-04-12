@@ -4,7 +4,7 @@
   <h1>New Issue</h1>
   <%= form_for [current_user.profile,@project,@issue] do |f| %>
     <div style="text-align:right;">
-      <%= f.select :type, ['Bug', 'Task'], { }, class: "issueType" %>
+      <%= f.select :issue_type, ['Bug', 'Task'], { }, class: "issueType" %>
       <%= f.select :profile_id, @profile_names, { }, class: "issueType" %>
     </div>
     <%= f.label :content, class: "label label-default" %> <br>

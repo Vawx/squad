@@ -7,4 +7,32 @@ class IssuesController < ApplicationController
     end
     @issue = Issue.new
   end
+
+  define_method :create do
+    youtube_links = ""
+    imgur_links = ""
+    params.each do |p|
+      if p[0].include? "youtubes"
+        youtube_links += "*" + p[1]
+      elsif p[0].include? "imgurs"
+        imgur_links += "*" + p[1]
+      end
+    end
+    @project = Project.find(params[:project_id])
+    @issue = @project.issues.new( issues_params )
+    @issue.resources = youtube_links + "^" + imgur_links
+    @issue.profile_id = current_user.profile.id
+    @issue.project_id = @project.id
+    @issue.status = "Open"
+    if @issue.save
+      redirect_to profile_project_path(current_user.profile, @project)
+    else
+      render :new
+    end
+  end
+
+  private
+  define_method :issues_params do
+    params.require(:issue).permit( :issue_type, :content )
+  end
 end

@@ -42,12 +42,15 @@ $().ready(function() {
   $("#youtubes").click(function(){
     var cloned = $('.youtubediv:first').clone( );
     cloned[0].childNodes[3].remove( );
+    $( cloned[0].childNodes[1] ).attr('name', 'youtubes' + $('.youtubediv').length);
     cloned.appendTo('.youtubes');
   });
 
   $("#imgurs").click(function() {
     var cloned = $('.imgurdiv:first').clone( );
     cloned[0].childNodes[3].remove( );
+    $( cloned[0].childNodes[1] ).attr('name', 'imgurs' + $('.imgurdiv').length);
+    console.log($('.imgurdiv').length);
     cloned.appendTo('.imgurs');
   })
 });
