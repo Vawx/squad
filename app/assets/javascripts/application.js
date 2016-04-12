@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
 
@@ -23,4 +23,18 @@ $().ready(function() {
     $('.notice').animate({opacity: '0'}, 1500);
     $('.alert').animate({opacity: '0'}, 1500);
   }
+
+  // New issue
+  $('.issueType').change(function( ) {
+    switch( this.value ) {
+      case 'Task':
+      $('.bugdesc').hide( );
+      $('.taskdesc').show( );
+      break;
+      case 'Bug':
+      $('.bugdesc').show( );
+      $('.taskdesc').hide( );
+      break;
+    }
+  });
 });

@@ -1,0 +1,29 @@
+<%= render "layouts/errors", object: @issue %>
+
+<div class="col-xs-8 col-xs-offset-2 form">
+  <h1>New Issue</h1>
+  <%= form_for [current_user.profile,@project,@issue] do |f| %>
+    <div style="text-align:right;">
+      <%= f.select :type, ['Bug', 'Task'], { }, class: "issueType" %>
+      <%= f.select :profile_id, @profile_names, { }, class: "issueType" %>
+    </div>
+    <%= f.label :content, class: "label label-default" %> <br>
+    <div class="bugdesc">
+      <%= f.text_area :content, class: "formarea", placeholder: "Give the most accurate description you can. If writing a bug, order each step with the most descriptive but smallest amount of text possible.
+
+      1. Load 'Map_Name'
+      2. Move to world position, 293X, 134Y, 34Z
+      3. Jump behind crate.
+
+      Result: Player character is stuck." %> <br>
+    </div>
+    <div class="taskdesc" hidden>
+      <%= f.text_area :content, class: "formarea", placeholder: "Tasks should be as descriptive as they need to be. Try to give the person who will be working on the task as much information as possible to complete the task to the quality you are looking for.
+
+Use outside resources to give more information, such as concept art, videos, examples, or screenshots." %> <br>
+    </div>
+    <div style="text-align:right;">
+      <%= f.submit "Create", class: "btn btn-primary" %>
+    </div>
+  <%end%>
+</div>
