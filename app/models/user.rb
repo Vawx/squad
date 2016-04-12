@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   private
   define_method :create_profile do
     self.create_profile!({user_name: self.username})
-
     PendingInvite.all.each do |pi|
       if pi.invite_email == self.email
         proj = Project.find(pi.project_id)

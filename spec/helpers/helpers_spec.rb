@@ -1,5 +1,17 @@
 require 'rails_helper'
 
+define_method :login_custom do |email|
+  logout
+  user = create(:user)
+  user.email = email
+  visit new_user_registration_path
+  fill_in 'Email', with: user.email
+  fill_in 'firstPassword', with: user.password
+  fill_in 'secondPassword', with: user.password
+  click_button 'signUp'
+  return user
+end
+
 define_method :login do
   user = create(:user)
   random = Random.new
@@ -27,4 +39,10 @@ define_method :login_create_project do
   click_link 'projectsLink'
   fill_in 'projectName', with: "Test Project"
   click_button 'Create'
+end
+
+define_method :admin_send_invite do
+  click_link 'Admin'
+  fill_in 'invite_address', with: "supertest@test.com"
+  click_button 'Send Invite'
 end

@@ -2,6 +2,7 @@ require'simplecov'
 require 'capybara/poltergeist'
 SimpleCov.start 'rails' do
   add_filter "app/controllers/users/"
+  add_filter "app/mailers/"
 end
 Capybara.javascript_driver = :poltergeist
 
