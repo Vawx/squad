@@ -38,4 +38,10 @@ RSpec.describe ApplicationHelper, :type => :helper do
       expect(issues_sev).to match_array(sorted_sev)
     end
   end
+  describe "#convert UTC to local time" do
+    it 'converts time to local time' do
+      current_time = Time.now
+      expect(ApplicationHelper::convert_to_readable_time(current_time)).not_to equal(current_time)
+    end
+  end
 end

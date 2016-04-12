@@ -24,19 +24,7 @@
     </div>
     <div class="row">
       <% @my_issues.each do |i| %>
-        <% if i.severity == "Very Important" %>
-          <div class="issue_form_very_important">
-            <h3><%= ApplicationHelper::limit_chars( i.content, 35 ) %></h3>
-          </div>
-        <%elsif i.severity == "Important" %>
-          <div class="issue_form_important">
-            <h3><%= ApplicationHelper::limit_chars( i.content, 35 ) %></h3>
-          </div>
-        <%elsif i.severity == "Not Important" %>
-          <div class="issue_form_not_important">
-            <h3><%= ApplicationHelper::limit_chars( i.content, 35 ) %></h3>
-          </div>
-        <%end%>
+        <%= render "issues/issueframe", object: i %>
       <%end%>
     </div>
   </div>
