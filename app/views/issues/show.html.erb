@@ -1,0 +1,42 @@
+
+<div class="col-xs-10 col-xs-offset-1">
+  <h1><%= ApplicationHelper::limit_chars( @issue.content, 25 ) %></h1>
+  <% if @issue.severity == "Very Important" %>
+    <h3><span class='label label-danger'><%= @issue.severity %></span></h3>
+  <% elsif @issue.severity == "Important" %>
+    <h3><span class='label label-warning'><%= @issue.severity %></span></h3>
+  <% else %>
+    <h3><span class='label label-success'><%= @issue.severity %></span></h3>
+  <%end%>
+  <div class="">
+    <% if @issue.status == "Open" %>
+      <h5 style="display:inline;margin:0;"><span class='label label-primary'><%= @issue.status %></span></h5>
+    <% elsif @issue.status == "Closed" %>
+      <h5 style="display:inline;margin:0;"><span class='label label-info'><%= @issue.status %></span></h5>
+    <%end%>
+    <% if @issue.profile_id == current_user.profile.id %>
+      <h5 style="display:inline;margin:0;"><span class='label label-primary'>Owned by: You</span></h5>
+    <% else %>
+      <h5 style="display:inline;margin:0;"><span class='label label-info'>Owned by: <%= Profile.find( @issue.profile_id ) %></span></h5>
+    <%end%>
+    <% if current_user.profile.id == @issue.profile_id %>
+      <div style="margin:0;text-align:right;">
+        <p>Transfer <% if @issue.issue_type == "Bug" %> "Bug" <%else%> "Task" <%end%> To: </p>
+        <%= form_for [current_user.profile, @project, @issue] do |f| %>
+        <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %>
+      <% end %>
+    </div>
+  <%end%>
+  </div>
+  <div class="well" style="margin-top:12px;">
+    <p>
+      <%= @issue.content %>
+    </p>
+
+    <p>
+      <%= ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
+    </p>
+  </div>
+  <h5 style="text-align:right;">Created At:</h5>
+  <h5 style="text-align:right;"><%= ApplicationHelper::convert_to_readable_time( @issue.created_at ) %></h5>
+</div>

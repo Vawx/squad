@@ -87,4 +87,9 @@ module ApplicationHelper
     morn_night = (ampm) ? "PM" : "AM"
     return date + " - " + time + morn_night
   end
+
+  # take rources in db and converts the list(s) into links
+  define_singleton_method :convert_resources_to_links do |resources|
+
+  end
 end

@@ -8,6 +8,11 @@ class IssuesController < ApplicationController
     @issue = Issue.new
   end
 
+  define_method :show do
+    @project = Project.find params[:project_id]
+    @issue = Issue.find params[:id]
+  end
+
   define_method :create do
     youtube_links = ""
     imgur_links = ""
