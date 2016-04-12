@@ -18,6 +18,6 @@ define_method :logout do
   return true
 end
 
-define_method :open_page do
+define_method :sop do
   save_and_open_page
 end

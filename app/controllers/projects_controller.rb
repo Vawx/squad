@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
   define_method :show do
     @project = Project.find params[:id]
     @my_issues = @project.issues.where(profile_id: current_user.profile.id)
+    @my_issues = ApplicationHelper::sort_issues_by_severity(@my_issues)
   end
 
   define_method :new do

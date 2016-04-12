@@ -7,7 +7,6 @@ class AdminController < ApplicationController
   end
 
   define_method :create do
-    binding.pry
     @project = Project.find(params[:project_id])
     @sending_error = ""
     @sending_message = ""

@@ -11,7 +11,6 @@ describe 'the admin send invite path' do
     within("//div[@id='form']") do
       fill_in 'invite_address', with: "test@testing.com"
     end
-    open_page
     click_button 'Send Invite'
     expect(PendingInvite.all.length).to eq(1)
   end
