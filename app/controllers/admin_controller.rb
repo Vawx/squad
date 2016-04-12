@@ -7,10 +7,11 @@ class AdminController < ApplicationController
   end
 
   define_method :create do
+    binding.pry
     @project = Project.find(params[:project_id])
     @sending_error = ""
     @sending_message = ""
-    email = params[:inviteAddress]
+    email = params[:invite_address]
     if email.length > 0
       alreadyExists = false
       if email != current_user.email
