@@ -2,6 +2,7 @@ class AdminController < ApplicationController
 
   define_method :index do
     @project = Project.find(params[:project_id])
+    @issues = @project.issues.sort{ |a, b| a.issue_type <=> b.issue_type }
     @sending_error = ""
     @sending_message = ""
   end

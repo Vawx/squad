@@ -20,14 +20,16 @@
         <%= link_to "Add", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %> </div>
       </div>
     <% @my_issues.each do |i| %>
-      <% if i.issue_type == "Bug" %>
-        <div class="Bugs">
-          <%= render "issues/issueframe", object: i %>
-        </div>
-      <% else %>
-        <div class="Tasks" hidden>
-          <%= render "issues/issueframe", object: i %>
-        </div>
+      <% if i.status == "Open" %>
+        <% if i.issue_type == "Bug" %>
+          <div class="Bugs">
+            <%= render "issues/issueframe", object: i %>
+          </div>
+        <% else %>
+          <div class="Tasks" hidden>
+            <%= render "issues/issueframe", object: i %>
+          </div>
+        <%end%>
       <%end%>
     <%end%>
   </div>

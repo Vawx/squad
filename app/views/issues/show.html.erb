@@ -1,6 +1,7 @@
 
 <div class="col-xs-10 col-xs-offset-1">
   <h1><%= ApplicationHelper::limit_chars( @issue.content, 25 ) %></h1>
+  <h4>[<%= @issue.issue_type %>]</h4>
   <% if @issue.severity == "Very Important" %>
     <h3><span class='label label-danger'><%= @issue.severity %></span></h3>
   <% elsif @issue.severity == "Important" %>
@@ -8,49 +9,64 @@
   <% else %>
     <h3><span class='label label-success'><%= @issue.severity %></span></h3>
   <%end%>
-  <div class="">
-    <% if @issue.status == "Open" %>
-      <h5 style="display:inline;margin:0;"><span class='label label-primary'><%= @issue.status %></span></h5>
-    <% elsif @issue.status == "Closed" %>
-      <h5 style="display:inline;margin:0;"><span class='label label-info'><%= @issue.status %></span></h5>
-    <%end%>
-    <% if @issue.profile_id == current_user.profile.id %>
-      <h5 style="display:inline;margin:0;"><span class='label label-primary'>Owned by: You</span></h5>
-    <% else %>
-      <h5 style="display:inline;margin:0;"><span class='label label-info'>Owned by: <%= Profile.find( @issue.profile_id ) %></span></h5>
-    <%end%>
-    <div class="row" style="margin-left:1%; margin-top:12px;">
-      <hr>
-      <a href="#" class="commentLink">> Comment</a>
-      <div class="issueComments" hidden>
-        <% @issue.comments.each do |comment| %>
-          <div class="commentframe">
-            <p><%= comment.content %></p>
-            <h6 style="text-align:right;">Author: <%= Profile.find(comment.author_id).user_name %></h6>
-            <h6 style="text-align:right;">Posted On: <%= ApplicationHelper::convert_to_readable_time( comment.created_at ) %></h6>
-          </div>
-        <% end %>
-        <div style="text-align:right;">
-          <%= link_to "New", new_profile_project_issue_comment_path(current_user.profile, @project, @issue), class: "btn btn-primary" %>
+
+  <% if @issue.status == "Open" %>
+    <h5 style="display:inline;margin:0;"><span class='label label-primary'><%= @issue.status %></span></h5>
+    <%= link_to "Close", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-danger" %>
+  <% elsif @issue.status == "Closed" %>
+    <h5 style="display:inline;margin:0;"><span class='label label-danger'><%= @issue.status %></span></h5>
+    <%= link_to "Open", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-primary" %>
+  <%end%>
+
+  <div class="row" style="margin-left:1%; margin-top:12px;">
+    <hr>
+    <a href="#" class="commentLink">> Comment</a>
+    <div class="issueComments" hidden>
+      <% @issue.comments.each do |comment| %>
+        <div class="commentframe">
+          <p><%= comment.content %></p>
+          <h6 style="text-align:right;">Author: <%= Profile.find(comment.author_id).user_name %></h6>
+          <h6 style="text-align:right;">Posted On: <%= ApplicationHelper::convert_to_readable_time( comment.created_at ) %></h6>
         </div>
+      <% end %>
+      <div style="text-align:right;">
+        <%= link_to "New", new_profile_project_issue_comment_path(current_user.profile, @project, @issue), class: "btn btn-primary" %>
       </div>
-      <hr>
     </div>
-    <% if current_user.profile.id == @issue.profile_id %>
-      <div style="margin-right:0px;text-align:right;">
+    <hr>
+  </div>
+  <% if current_user.profile.id == @issue.profile_id || is_admin?(current_user, @project)%>
+    <a href="#" class="updateLink" style="margin-left:1%; margin-top:12px;">> Update</a>
+    <div class="updateForm" hidden>
+      <div style="text-align:right;">
+        <%= form_for [current_user.profile, @project, @issue] do |f| %>
+          <p> Update severity:
+          <%= f.select :severity, ['Very Important', 'Important', 'Not Important'], { }, class: "issueType" %> </p>
+          <%= f.submit "Update", class: "btn btn-primary" %>
+        <%end%>
+        <hr>
+      </div>
+    </div>
+    <hr>
+    <a href="#" class="transferLink" style="margin-left:1%; margin-top:12px;">> Transfer</a>
+    <div class="transferForm" hidden>
+      <div style="text-align:right;">
+        <% if is_admin?(current_user, @project) %>
+          <p><b>Owned By: <%= Profile.find(@issue.profile_id).user_name %></b></p>
+        <%end%>
         <%= form_for [current_user.profile, @project, @issue] do |f| %>
           <p> Transfer To:
           <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %> </p>
           <%= f.submit "Transfer", class: "btn btn-primary" %>
         <% end %>
         </p>
+      </div>
     </div>
-  <%end%>
-  </div>
+    <%end%>
+    <hr>
+    <h4>Content</h4>
   <div class="well" style="margin-top:12px;">
-    <p>
-      <%= @issue.content %>
-    </p>
+    <p><%= @issue.content %></p>
 
     <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
     <% links[0].each do |youtubes|  %>

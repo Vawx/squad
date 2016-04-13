@@ -15,17 +15,39 @@ class IssuesController < ApplicationController
 
   define_method :update do
     @issue = Issue.find params[:id]
-    if params[:commit] != "Delete"
+    if params[:commit] == "Transfer"
       @profile = Profile.find(params[:issue][:profile_id])
       @issue.profile_id = @profile.id
       if @issue.save
         redirect_to profile_project_path(current_user, Project.find(params[:project_id]), "success" + @profile.id.to_s)
         return
       end
-    else
+    elsif params[:commit] == "Destroy"
       @issue.destroy
+    else
+      @issue.severity = params[:issue][:severity]
+      @profile = Profile.find(params[:profile_id])
+
+      if @issue.save
+        redirect_to profile_project_path(current_user, Project.find(params[:project_id]))
+        return
+      end
     end
     redirect_to profile_project_path(current_user, Project.find(params[:project_id]))
+  end
+
+  define_method :edit do
+    issue = Issue.find params[:id]
+    project = Project.find(params[:project_id])
+    if issue.status == "Open"
+      issue.status = "Closed"
+      issue.profile_id = project.admin_id
+      redirect_to profile_project_path(current_user.profile, project)
+    else
+      issue.status = "Open"
+      redirect_to profile_project_issue_path(current_user.profile, project, issue)
+    end
+    issue.save
   end
 
   define_method :create do

@@ -43,6 +43,7 @@ $().ready(function() {
     var cloned = $('.youtubediv:first').clone( );
     cloned[0].childNodes[3].remove( );
     $( cloned[0].childNodes[1] ).attr('name', 'youtubes' + $('.youtubediv').length);
+    $( cloned[0].childNodes[1] ).val('');
     cloned.appendTo('.youtubes');
   });
 
@@ -50,6 +51,7 @@ $().ready(function() {
     var cloned = $('.imgurdiv:first').clone( );
     cloned[0].childNodes[3].remove( );
     $( cloned[0].childNodes[1] ).attr('name', 'imgurs' + $('.imgurdiv').length);
+    $( cloned[0].childNodes[1] ).val('');
     cloned.appendTo('.imgurs');
   });
 
@@ -59,6 +61,24 @@ $().ready(function() {
       $(".issueComments").hide( );
     } else {
       $(".issueComments").show( );
+    }
+  });
+
+  // Show update on issues
+  $(".updateLink").click(function() {
+    if( $(".updateForm").is(":visible")) {
+      $(".updateForm").hide( );
+    } else {
+      $(".updateForm").show( );
+    }
+  });
+
+  // Show transfer on issues
+  $(".transferLink").click(function() {
+    if( $(".transferForm").is(":visible")) {
+      $(".transferForm").hide( );
+    } else {
+      $(".transferForm").show( );
     }
   });
 
@@ -75,5 +95,15 @@ $().ready(function() {
       $(".Bugs").show( );
       $("#taskButton").removeClass('btn-danger').addClass('btn-primary');
       $(".Tasks").hide( );
+  });
+
+  // Invite panel (admin)
+  $('.invitePanel').click(function( ) {
+    $('.inviteForm').toggle( );
+  });
+
+  // bugs panel (admin)
+  $('.bugsPanel').click(function( ) {
+    $('.bugsForm').toggle( );
   });
 });
