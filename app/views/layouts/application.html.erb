@@ -38,8 +38,16 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
-                <li><%= link_to "Projects", profile_projects_path(current_user), id: "projectsLink" %></li>
-                <li><%= link_to "Logout", destroy_user_session_path, method: :delete, id: "logout"%></li>
+              <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects<span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                 <% current_user.profile.projects.each do |proj| %>
+                  <li><a href="#"><%= link_to proj.name, profile_project_path(current_user.profile, proj) %></a></li>
+                 <% end %>
+                 <li><a href="#"><%= link_to "New", new_profile_project_path( current_user.profile ) %></a></li>
+               </ul>
+              </li>
+              <li><%= link_to "Logout", destroy_user_session_path, method: :delete, id: "logout"%></li>
               <% else %>
                 <li><%= link_to "Sign up", new_user_registration_path %></li>
                 <li><%= link_to "Login", new_user_session_path %></li>

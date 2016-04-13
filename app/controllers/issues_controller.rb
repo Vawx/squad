@@ -20,6 +20,7 @@ class IssuesController < ApplicationController
       @issue.profile_id = @profile.id
       if @issue.save
         redirect_to profile_project_path(current_user, Project.find(params[:project_id]), "success" + @profile.id.to_s)
+        return
       end
     else
       @issue.destroy
