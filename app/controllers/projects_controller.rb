@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   define_method :index do
-    
+
   end
 
   define_method :show do
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
 
   define_method :create do
     @project = current_user.profile.projects.new project_params
-    @project.admin_id = current_user.id
+    @project.admin_id = current_user.profile.id
     if @project.save
       current_user.profile.projects.push @project
       current_user.profile.save

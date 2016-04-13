@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: "frontend#index"
   get '/about', to: 'about#index'
 
+  resources :pending_invite
+
   resources :profiles do
     resources :projects do
         resources :issues do
