@@ -15,10 +15,11 @@ class IssuesController < ApplicationController
 
   define_method :update do
     @issue = Issue.find params[:id]
-    @issue.profile_id = Profile.find(params[:issue][:profile_id]).id
-
+    @profile = Profile.find(params[:issue][:profile_id])
+    @issue.profile_id = @profile.id
     @issue.save
-    binding.pry
+
+    redirect_to profile_project_path(current_user, Project.find(params[:project_id]), "success" + @profile.id.to_s)
   end
 
   define_method :create do

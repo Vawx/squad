@@ -1,0 +1,24 @@
+<div class="col-xs-10 col-xs-offset-1">
+  <a href="#" class="commentLink"><h3>>Previous Comments</h3></a>
+  <hr>
+
+  <% if @issue.comments.length == 0 %>
+    <div class="issueComments" hidden>
+      <p>None</p>
+    </div>
+  <%else %>
+    <% @issue.comments.each do |comment| %>
+      <div class="issueComments" hidden>
+        <p><%= comment %></p>
+      </div>
+    <%end%>
+  <%end%>
+</div>
+<div class="col-xs-10 col-xs-offset-1 frame">
+  <h2>New Comment</h2>
+  <%= form_for [current_user.profile, @project, @issue, @comment] do |f| %>
+    <%= f.label :content, class: "label label-default" %>
+    <%= f.text_area :content, class: "formarea" %>
+    <%= f.submit "New Comment", class: "btn btn-primary right", style: "text-align:right;" %>
+  <%end%>
+</div>

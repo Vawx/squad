@@ -19,6 +19,23 @@
     <% else %>
       <h5 style="display:inline;margin:0;"><span class='label label-info'>Owned by: <%= Profile.find( @issue.profile_id ) %></span></h5>
     <%end%>
+    <div class="row" style="margin-left:1%; margin-top:12px;">
+      <hr>
+      <a href="#" class="commentLink">> Comment</a>
+      <div class="issueComments" hidden>
+        <% @issue.comments.each do |comment| %>
+          <div class="commentframe">
+            <p><%= comment.content %></p>
+            <h6 style="text-align:right;">Author: <%= Profile.find(comment.author_id).user_name %></h6>
+            <h6 style="text-align:right;">Posted On: <%= ApplicationHelper::convert_to_readable_time( comment.created_at ) %></h6>
+          </div>
+        <% end %>
+        <div style="text-align:right;">
+          <%= link_to "New", new_profile_project_issue_comment_path(current_user.profile, @project, @issue), class: "btn btn-primary" %>
+        </div>
+      </div>
+      <hr>
+    </div>
     <% if is_admin?(current_user, @project) %>
       <%= form_for [current_user.profile, @project, @issue] do |f| %>
         <%= f.submit "Delete", class: "btn btn-danger", data: {confirm: "This is permanent. Are you sure this Isssue has no use in the future?"} %>

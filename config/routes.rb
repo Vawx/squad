@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resources :profiles do
     resources :projects do
-        resources :issues
+        resources :issues do
+          resources :comments
+        end
         resources :admin
     end
   end

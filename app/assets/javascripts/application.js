@@ -53,4 +53,13 @@ $().ready(function() {
     console.log($('.imgurdiv').length);
     cloned.appendTo('.imgurs');
   })
+
+  // SHow comments on issues
+  $(".commentLink").click(function() {
+    if( $(".issueComments").is(":visible")) {
+      $(".issueComments").hide( )
+    } else {
+      $(".issueComments").show( );      
+    }
+  });
 });

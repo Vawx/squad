@@ -10,6 +10,15 @@ class ProjectsController < ApplicationController
     @project = Project.find params[:id]
     @my_issues = @project.issues.where(profile_id: current_user.profile.id)
     @my_issues = ApplicationHelper::sort_issues_by_severity(@my_issues)
+
+    if params[:format].class != NilClass
+      profile_id = params[:format]
+      if profile_id.include? "success"
+        profile_id = profile_id.sub("success", "")
+        flash.now[:notice] = "Successfully sent issue to: " + Profile.find(profile_id).user_name
+      end
+    end
+
   end
 
   define_method :new do
