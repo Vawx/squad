@@ -12,10 +12,10 @@
 
   <% if @issue.status == "Open" %>
     <h5 style="display:inline;margin:0;"><span class='label label-primary'><%= @issue.status %></span></h5>
-    <%= link_to "Close", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-danger" %>
+    <%= link_to "Close", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-danger", id: "closeIssue"%>
   <% elsif @issue.status == "Closed" %>
     <h5 style="display:inline;margin:0;"><span class='label label-danger'><%= @issue.status %></span></h5>
-    <%= link_to "Open", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-primary" %>
+    <%= link_to "Open", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-primary", id: "openIssue" %>
   <%end%>
 
   <div class="row" style="margin-left:1%; margin-top:12px;">
@@ -36,7 +36,7 @@
     <hr>
   </div>
   <% if current_user.profile.id == @issue.profile_id || is_admin?(current_user, @project)%>
-    <a href="#" class="updateLink" style="margin-left:1%; margin-top:12px;">> Update</a>
+    <a href="#" class="updateLink" style="margin-left:1%; margin-top:12px;" id="updateLink">> Update</a>
     <div class="updateForm" hidden>
       <div style="text-align:right;">
         <%= form_for [current_user.profile, @project, @issue] do |f| %>
@@ -48,7 +48,7 @@
       </div>
     </div>
     <hr>
-    <a href="#" class="transferLink" style="margin-left:1%; margin-top:12px;">> Transfer</a>
+    <a href="#" class="transferLink" style="margin-left:1%; margin-top:12px;" id="transferLink">> Transfer</a>
     <div class="transferForm" hidden>
       <div style="text-align:right;">
         <% if is_admin?(current_user, @project) %>
@@ -62,9 +62,9 @@
         </p>
       </div>
     </div>
-    <%end%>
-    <hr>
-    <h4>Content</h4>
+  <%end%>
+  <hr>
+  <h4>Content</h4>
   <div class="well" style="margin-top:12px;">
     <p><%= @issue.content %></p>
 

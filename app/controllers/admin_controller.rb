@@ -9,6 +9,7 @@ class AdminController < ApplicationController
 
   define_method :create do
     @project = Project.find(params[:project_id])
+    @issues = @project.issues.sort{ |a, b| a.issue_type <=> b.issue_type }
     @sending_error = ""
     @sending_message = ""
     email = params[:invite_address]

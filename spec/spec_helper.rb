@@ -5,6 +5,7 @@ SimpleCov.start 'rails' do
   add_filter "app/mailers/"
 end
 Capybara.javascript_driver = :poltergeist
+Capybara.ignore_hidden_elements = false
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

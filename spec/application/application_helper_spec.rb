@@ -6,6 +6,31 @@ RSpec.describe ApplicationHelper, :type => :helper do
       expect(ApplicationHelper::limit_chars("superlongtestingword", 3)).to eq("sup...")
     end
   end
+  describe "#convert_resources_to_links" do
+    it "converts string into array of imgur and youtube links" do
+      from_user = "[+]https://www.youtube.com/watch?v=Lt-U_t2pUHI[+]https://www.youtube.com/watch?v=f62Z8Ev9OXA(+)[+]http://i.imgur.com/InL5xpt.png[+]http://i.imgur.com/4dr3B4z.jpg"
+
+      converted = ApplicationHelper::convert_resources_to_links(from_user)
+      expect(converted).to eq([["https://www.youtube.com/embed/Lt-U_t2pUHI", "https://www.youtube.com/embed/f62Z8Ev9OXA"],
+ ["http://i.imgur.com/InL5xpt.png", "http://i.imgur.com/4dr3B4z.jpg"]])
+    end
+  end
+  describe "#valid youtube link" do
+    it "checks to make sure elements of url match whats needed for youtube`" do
+      expect(ApplicationHelper::valid_youtube?("https://www.youtube.com/embed/f62Z8Ev9OXA")).to eq(true)
+    end
+    it "checks to make sure elements of url do NOT match whats needed for youtube" do
+      expect(ApplicationHelper::valid_youtube?("akldjfa;ldjkf.com")).to eq(false)
+    end
+  end
+  describe "#valid imgur link" do
+    it "checks to make sure elements of url match whats needed for imgur" do
+      expect(ApplicationHelper::valid_imgur?("http://i.imgur.com/6YXkgPP.png?1")).to eq(true)
+    end
+    it "checks to make sure elements of url do NOT match whats needed for imgur" do
+      expect(ApplicationHelper::valid_imgur?("http://i.asdfasdf.asdfcom/6asdfYXkgPP.png?1")).to eq(false)
+    end
+  end
   describe "#sort_issues_by_severity" do
     it "filters an array of issues by severity" do
       issues = []

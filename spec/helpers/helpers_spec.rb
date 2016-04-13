@@ -35,14 +35,38 @@ define_method :sop do
 end
 
 define_method :login_create_project do
-  login
-  click_link 'projectsLink'
+  logout
+  user = login
+  visit new_profile_project_path( user.profile )
   fill_in 'projectName', with: "Test Project"
   click_button 'Create'
+  return user
+end
+
+define_method :login_create_project_and_issue do
+  user = login_create_project_and_issue
+  return user
+end
+
+define_method :login_create_project_and_issue do
+  logout
+  user = login_create_project
+  click_link 'newIssueButton'
+  fill_in 'content_bug', with: "This is a test bug"
+  click_button 'Create'
+  return user
 end
 
 define_method :admin_send_invite do
   click_link 'Admin'
   fill_in 'invite_address', with: "supertest@test.com"
   click_button 'Send Invite'
+end
+
+define_method :login_create_project_and_issue_then_close_issue do
+  user = login_create_project_and_issue
+  issue = Issue.all[0]
+  visit profile_project_issue_path(user.profile, Project.all[0], issue)
+  click_link 'closeIssue'
+  return user
 end

@@ -1,9 +1,6 @@
 class ProjectsController < ApplicationController
   define_method :index do
-    @projects = current_user.profile.projects
-    if @projects.length == 0
-      redirect_to new_profile_project_path current_user
-    end
+    
   end
 
   define_method :show do
