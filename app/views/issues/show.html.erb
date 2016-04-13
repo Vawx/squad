@@ -38,9 +38,9 @@
     </div>
     <% if current_user.profile.id == @issue.profile_id %>
       <div style="margin-right:0px;text-align:right;">
-        <p>Transfer <% if @issue.issue_type == "Bug" %> "Bug" <%else%> "Task" <%end%> To:
         <%= form_for [current_user.profile, @project, @issue] do |f| %>
-          <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %>
+          <p> Transfer To:
+          <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %> </p>
           <%= f.submit "Transfer", class: "btn btn-primary" %>
         <% end %>
         </p>

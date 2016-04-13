@@ -50,16 +50,30 @@ $().ready(function() {
     var cloned = $('.imgurdiv:first').clone( );
     cloned[0].childNodes[3].remove( );
     $( cloned[0].childNodes[1] ).attr('name', 'imgurs' + $('.imgurdiv').length);
-    console.log($('.imgurdiv').length);
     cloned.appendTo('.imgurs');
-  })
+  });
 
   // Show comments on issues
   $(".commentLink").click(function() {
     if( $(".issueComments").is(":visible")) {
-      $(".issueComments").hide( )
+      $(".issueComments").hide( );
     } else {
       $(".issueComments").show( );
     }
+  });
+
+  // Toggle between bugs and tasks
+  $("#taskButton").click(function( ) {
+    $("#taskButton").removeClass('btn-primary').addClass('btn-danger');
+    $(".Tasks").show( );
+    $("#bugButton").removeClass('btn-danger').addClass('btn-primary');
+    $(".Bugs").hide( );
+  });
+
+  $("#bugButton").click(function( ) {
+      $("#bugButton").removeClass('btn-primary').addClass('btn-danger');
+      $(".Bugs").show( );
+      $("#taskButton").removeClass('btn-danger').addClass('btn-primary');
+      $(".Tasks").hide( );
   });
 });

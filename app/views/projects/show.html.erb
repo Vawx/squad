@@ -13,12 +13,22 @@
 
 <div class="row">
   <div class="col-xs-7 col-xs-offset-1">
-    <div class="row">
-      <h2 style="float:left;margin:11px;">Bugs / Tasks</h2> <div style="float:left;margin:11;">
-      <%= link_to "Add", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %> </div>
-    </div>
+    <div class="row" style="margin-bottom:12px;">
+      <button class="btn btn-lg btn-danger" id="bugButton">Bugs</button>
+      <button class="btn btn-lg btn-primary" id="taskButton">Tasks</button>
+      <div style="float:right;">
+        <%= link_to "Add", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %> </div>
+      </div>
     <% @my_issues.each do |i| %>
-      <%= render "issues/issueframe", object: i %>
+      <% if i.issue_type == "Bug" %>
+        <div class="Bugs">
+          <%= render "issues/issueframe", object: i %>
+        </div>
+      <% else %>
+        <div class="Tasks" hidden>
+          <%= render "issues/issueframe", object: i %>
+        </div>
+      <%end%>
     <%end%>
   </div>
   <div class="col-xs-3 col-xs-offset-0">
