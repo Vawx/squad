@@ -18,7 +18,7 @@
     <%= link_to "Open", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-primary", id: "openIssue" %>
   <%end%>
 
-  <div class="row" style="margin-left:1%; margin-top:12px;">
+  <div class="row" style="margin-left:1%; margin-top:12px;" id="commentForm">
     <hr>
     <a href="#" class="commentLink">> Comment</a>
     <div class="issueComments" hidden>
