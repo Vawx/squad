@@ -27,6 +27,13 @@ body
   font-size: 18px
   word-wrap: break-word
 
+h5
+  font-weight: 600
+
+.issueFrame:hover
+  text-decoration: none
+  color: black
+
 .navbar-brand
   font-family: 'Oswald', sans-serif
   font-weight: bold
@@ -167,6 +174,10 @@ h1
   margin-bottom: 6px
   color: black
 
+.issue_form_very_important:hover
+  border-color: rgb(255,0,0)
+  background-color: rgba(40,40,40,0.25)
+
 .issue_form_important
   background-color: rgba(100,100,100,0.25)
   border-radius: 12px
@@ -177,6 +188,10 @@ h1
   margin-bottom: 6px
   color: black
 
+.issue_form_important:hover
+  border-color: rgb(255,255,60)
+  background-color: rgba(40,40,40,0.25)
+
 .issue_form_not_important
   background-color: rgba(100,100,100,0.25)
   border-radius: 12px
@@ -186,3 +201,25 @@ h1
   border-width: thick
   margin-bottom: 6px
   color: black
+
+.issue_form_not_important:hover
+  border-color: rgb(40,255,40)
+  background-color: rgba(40,40,40,0.25)
+
+.scalable
+  overflow: hidden
+
+.scalable iframe
+  height: 100%
+  left: 0
+  position: absolute
+  top: 0
+  width: 100%
+
+.scalable .scalable-content
+  height: 0
+  position: relative
+
+.scalable-16-9 .scalable-content
+  /* Percentage from 9 divided by 16 for ratio of 16:9. */
+  padding-bottom: 56.25%

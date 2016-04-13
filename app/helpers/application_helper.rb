@@ -52,7 +52,7 @@ module ApplicationHelper
 
   # converts timestamps time to something usually read
   define_singleton_method :convert_to_readable_time do |long_time|
-    long_time_string = long_time.to_s
+    long_time_string = long_time.localtime.to_s
     year = long_time_string.slice(0, 4)
     month = long_time_string.slice(5..6)
     day = long_time_string.slice(8..9)
@@ -61,35 +61,59 @@ module ApplicationHelper
     minute = long_time_string.slice(14..15)
     second = long_time_string.slice(17..18)
 
-    ampm = false
-    if hour > 13
-      hour -= 12
-      ampm = true
-    end
-
-    #get user timezone
-    timezone = Time.now.to_s
-    timezone = timezone.slice(20..25)
-    subract_zone = ""
-    split_zone = timezone.split('')
-    split_zone.each do |s|
-      if s != '0'
-        subract_zone += s
+    local_time_zone = Time.now.getlocal.to_s.slice(20..25)
+    subtraction_time_zone = ""
+    local_time_zone.split('').each do |c|
+      if c != "0"
+        subtraction_time_zone += c
       end
     end
 
-    #offet to fit users time zone (+= cause zones can be negative)
-    hour += subract_zone.to_i
+    # Addition cause local_time_zone could be negative
+    post_hour = long_time.to_s.slice(11..12).to_i
+    post_hour += subtraction_time_zone.to_i
+    ampm = (post_hour > 12) ? "PM" : "AM"
 
     date = month + "/" + day + "/" + year
-    time = hour.to_s + ":" + minute + ":" + second
-
-    morn_night = (ampm) ? "PM" : "AM"
-    return date + " - " + time + morn_night
+    time = hour.to_s + ":" + minute + ":" + second + " " + ampm
+    return date + " - " + time
   end
 
   # take rources in db and converts the list(s) into links
   define_singleton_method :convert_resources_to_links do |resources|
+    split = resources.split("(+)")
+    youtubes = split[0].split("[+]").reject { |y| y.empty? }
+    imgurs = split[1].split("[+]").reject { |i| i.empty? }
 
+    youtubes_to_embed = []
+    embed_index = -1
+    youtubes.each do |youtube|
+      if !youtube.include?("embed")
+        tube_split = youtube.split('')
+        char_count = 0
+        tube_split.each do |c|
+          if c == "/" && tube_split[char_count - 1] == "m" && tube_split[char_count + 1] == "w"
+            embed_index = char_count + 1
+          end
+          char_count += 1
+        end
+
+        if embed_index != -1
+          youtubes_to_embed.push(youtube.sub!("watch?v=", "").insert(embed_index, "embed/"))
+          embed_index = -1
+        end
+      end
+    end
+    return youtubes, imgurs
+  end
+
+  # check if valid youtube link
+  define_singleton_method :valid_youtube? do |link|
+    return ( link.include?("www.") && link.include?("youtube") && link.include?(".com") && !link.include?("watch?"))
+  end
+
+  # check if valid imgur link
+  define_singleton_method :valid_imgur? do |link|
+    return ( link.include?("i.") && link.include?("imgur") && link.include?(".com") )
   end
 end

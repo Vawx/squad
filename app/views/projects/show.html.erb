@@ -2,11 +2,6 @@
 <div class="row">
   <div class="form" style="text-align:center;">
     <h1><%= @project.name %></h1>
-    <% if is_admin?(current_user, @project) %>
-      <h6 class="danger-text">Admin: You</h6>
-    <%else%>
-      <h6 class="danger-text">Admin: <%= User.find( @project.admin_id ).email %></h6>
-    <%end%>
   </div>
 
   <div class="col-xs-1 col-xs-offset-10">
@@ -25,6 +20,7 @@
     <% @my_issues.each do |i| %>
       <%= render "issues/issueframe", object: i %>
     <%end%>
+  </div>
   <div class="col-xs-3 col-xs-offset-0">
     <h2>Users</h2>
     <% @project.profiles.each do |pr| %>

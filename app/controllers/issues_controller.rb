@@ -13,19 +13,27 @@ class IssuesController < ApplicationController
     @issue = Issue.find params[:id]
   end
 
+  define_method :update do
+    @issue = Issue.find params[:id]
+    @issue.profile_id = Profile.find(params[:issue][:profile_id]).id
+
+    @issue.save
+    binding.pry
+  end
+
   define_method :create do
     youtube_links = ""
     imgur_links = ""
     params.each do |p|
       if p[0].include? "youtubes"
-        youtube_links += "*" + p[1]
+        youtube_links += "[+]" + p[1]
       elsif p[0].include? "imgurs"
-        imgur_links += "*" + p[1]
+        imgur_links += "[+]" + p[1]
       end
     end
     @project = Project.find(params[:project_id])
     @issue = @project.issues.new( issues_params )
-    @issue.resources = youtube_links + "^" + imgur_links
+    @issue.resources = youtube_links + "(+)" + imgur_links
     @issue.project_id = @project.id
     @issue.content = ( params[:content_bug].length > 0 ) ? params[:content_bug] : params[:content_task]
     @issue.status = "Open"

@@ -19,12 +19,19 @@
     <% else %>
       <h5 style="display:inline;margin:0;"><span class='label label-info'>Owned by: <%= Profile.find( @issue.profile_id ) %></span></h5>
     <%end%>
-    <% if current_user.profile.id == @issue.profile_id %>
-      <div style="margin:0;text-align:right;">
-        <p>Transfer <% if @issue.issue_type == "Bug" %> "Bug" <%else%> "Task" <%end%> To: </p>
-        <%= form_for [current_user.profile, @project, @issue] do |f| %>
-        <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %>
+    <% if is_admin?(current_user, @project) %>
+      <%= form_for [current_user.profile, @project, @issue] do |f| %>
+        <%= f.submit "Delete", class: "btn btn-danger", data: {confirm: "This is permanent. Are you sure this Isssue has no use in the future?"} %>
       <% end %>
+    <%end%>
+    <% if current_user.profile.id == @issue.profile_id %>
+      <div style="margin-right:0px;text-align:right;">
+        <p>Transfer <% if @issue.issue_type == "Bug" %> "Bug" <%else%> "Task" <%end%> To:
+        <%= form_for [current_user.profile, @project, @issue] do |f| %>
+          <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %>
+          <%= f.submit "Transfer", class: "btn btn-primary" %>
+        <% end %>
+        </p>
     </div>
   <%end%>
   </div>
@@ -33,9 +40,24 @@
       <%= @issue.content %>
     </p>
 
-    <p>
-      <%= ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
-    </p>
+    <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
+    <% links[0].each do |youtubes|  %>
+      <% if ApplicationHelper::valid_youtube?( youtubes ) %>
+      <div class="scalable scalable-16-9">
+        <div class="scalable-content">
+          <iframe src="<%= youtubes %>"></iframe>
+        </div>
+      </div>
+      <%end%>
+    <% end %>
+    <% links[1].each do |imgur| %>
+      <% if ApplicationHelper::valid_imgur?( imgur ) %>
+        <a href="<%= imgur %>" style="margin-left: 7%;" target="_blank">
+          <img src="<%= imgur %>" width="40%" max-width="40%" />
+        </a>
+      <%end%>
+    <%end%>
+
   </div>
   <h5 style="text-align:right;">Created At:</h5>
   <h5 style="text-align:right;"><%= ApplicationHelper::convert_to_readable_time( @issue.created_at ) %></h5>
