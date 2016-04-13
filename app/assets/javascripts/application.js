@@ -54,12 +54,12 @@ $().ready(function() {
     cloned.appendTo('.imgurs');
   })
 
-  // SHow comments on issues
+  // Show comments on issues
   $(".commentLink").click(function() {
     if( $(".issueComments").is(":visible")) {
       $(".issueComments").hide( )
     } else {
-      $(".issueComments").show( );      
+      $(".issueComments").show( );
     }
   });
 });

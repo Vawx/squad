@@ -15,11 +15,16 @@ class IssuesController < ApplicationController
 
   define_method :update do
     @issue = Issue.find params[:id]
-    @profile = Profile.find(params[:issue][:profile_id])
-    @issue.profile_id = @profile.id
-    @issue.save
-
-    redirect_to profile_project_path(current_user, Project.find(params[:project_id]), "success" + @profile.id.to_s)
+    if params[:commit] != "Delete"
+      @profile = Profile.find(params[:issue][:profile_id])
+      @issue.profile_id = @profile.id
+      if @issue.save
+        redirect_to profile_project_path(current_user, Project.find(params[:project_id]), "success" + @profile.id.to_s)
+      end
+    else
+      @issue.destroy
+    end
+    redirect_to profile_project_path(current_user, Project.find(params[:project_id]))
   end
 
   define_method :create do

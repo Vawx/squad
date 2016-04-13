@@ -36,11 +36,6 @@
       </div>
       <hr>
     </div>
-    <% if is_admin?(current_user, @project) %>
-      <%= form_for [current_user.profile, @project, @issue] do |f| %>
-        <%= f.submit "Delete", class: "btn btn-danger", data: {confirm: "This is permanent. Are you sure this Isssue has no use in the future?"} %>
-      <% end %>
-    <%end%>
     <% if current_user.profile.id == @issue.profile_id %>
       <div style="margin-right:0px;text-align:right;">
         <p>Transfer <% if @issue.issue_type == "Bug" %> "Bug" <%else%> "Task" <%end%> To:
@@ -78,4 +73,11 @@
   </div>
   <h5 style="text-align:right;">Created At:</h5>
   <h5 style="text-align:right;"><%= ApplicationHelper::convert_to_readable_time( @issue.created_at ) %></h5>
+  <div style="text-align:right">
+    <% if is_admin?(current_user, @project) %>
+      <%= form_for [current_user.profile, @project, @issue] do |f| %>
+        <%= f.submit "Delete", class: "btn btn-danger", data: {confirm: "This is permanent. Are you sure this Isssue has no use in the future?"} %>
+      <% end %>
+    <%end%>
+  </div>
 </div>
