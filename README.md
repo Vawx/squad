@@ -17,6 +17,10 @@ Tasks and bugs have levels of importance are organized and stored based on it.
 5. rails s
 6. localhost:3000
 
+### ----
+
+7. [View on Heroku](https://dry-sierra-46004.herokuapp.com/)
+
 ##License
 The MIT License (MIT)
 Copyright (c) <2016>  Kyle Langley
