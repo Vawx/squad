@@ -29,7 +29,7 @@ class AdminController < ApplicationController
           pending = PendingInvite.new
           pending.project_id = @project.id
           pending.invite_email = ApplicationHelper::to_lower(email)
-          pending.sent_email = current_user.email
+          pending.from_email = current_user.email
 
           pending.save( )
 
