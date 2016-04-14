@@ -13,6 +13,8 @@ gem 'omniauth-github'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
@@ -32,3 +34,5 @@ group :test do
   gem 'simplecov', :require => false
   gem 'poltergeist'
 end
+
+ruby "2.2.0"
