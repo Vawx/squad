@@ -1,3 +1,4 @@
+<a href="" class="back-to-top"></a>
 
 <div class="col-xs-10 col-xs-offset-1">
   <h1>[<%= @issue.issue_type %>] <%= ApplicationHelper::limit_chars( @issue.content, 25 ).html_safe %></h1>
@@ -16,6 +17,28 @@
     <h5 style="display:inline;margin:0;"><span class='label label-danger'><%= @issue.status %></span></h5>
     <%= link_to "Open", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-primary", id: "openIssue", data: {confirm: "Are you sure?" } %>
   <%end%>
+  <hr>
+  <h4>Content</h4>
+  <div class="well" style="margin-top:12px;">
+    <p><%= @issue.content.html_safe %></p>
+    <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
+    <% links[0].each do |youtubes|  %>
+      <% if ApplicationHelper::valid_youtube?( youtubes ) %>
+      <div class="scalable scalable-16-9">
+        <div class="scalable-content">
+          <iframe src="<%= youtubes %>"></iframe>
+        </div>
+      </div>
+      <%end%>
+    <% end %>
+    <% links[1].each do |imgur| %>
+      <% if ApplicationHelper::valid_imgur?( imgur ) %>
+        <a href="<%= imgur %>" style="margin-left: 7%;" target="_blank">
+          <img src="<%= imgur %>" width="40%" max-width="40%" />
+        </a>
+      <%end%>
+    <%end%>
+  </div>
 
   <div class="row" style="margin-left:1%; margin-top:12px;" id="commentForm">
     <hr>
@@ -89,26 +112,6 @@
     <%end%>
   </div>
   <hr>
-  <div class="well" style="margin-top:12px;">
-    <p><%= @issue.content.html_safe %></p>
-    <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
-    <% links[0].each do |youtubes|  %>
-      <% if ApplicationHelper::valid_youtube?( youtubes ) %>
-      <div class="scalable scalable-16-9">
-        <div class="scalable-content">
-          <iframe src="<%= youtubes %>"></iframe>
-        </div>
-      </div>
-      <%end%>
-    <% end %>
-    <% links[1].each do |imgur| %>
-      <% if ApplicationHelper::valid_imgur?( imgur ) %>
-        <a href="<%= imgur %>" style="margin-left: 7%;" target="_blank">
-          <img src="<%= imgur %>" width="40%" max-width="40%" />
-        </a>
-      <%end%>
-    <%end%>
-  </div>
   <h5 style="text-align:right;">Created At:</h5>
   <h5 style="text-align:right;"><%= ApplicationHelper::convert_to_readable_time( @issue.created_at ) %></h5>
   <div style="text-align:right">
