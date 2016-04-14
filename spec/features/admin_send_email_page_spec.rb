@@ -14,14 +14,6 @@ describe 'the admin send invite path' do
     send_invite
     expect(page).to have_content("You cannot invite yourself")
   end
-  it 'sends two invites to one person' do
-    user = login_custom "supertest@testing.com"
-    visit new_profile_project_path(user.profile)
-    send_invite
-    visit new_profile_project_path(user.profile)
-    send_invite
-    expect(page).to have_content("Invite has already been sent to user")
-  end
   it 'tries to send invite with no email in field' do
     user = login
     visit new_profile_project_path(user.profile)
