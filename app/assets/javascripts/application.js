@@ -91,19 +91,42 @@ $().ready(function() {
     }
   });
 
+  // Show users on project
+  $(".projectUsersLink").click(function() {
+    if( $(".projectUsers").is(":visible")) {
+      $(".projectUsers").hide( );
+    } else {
+      $(".projectUsers").show( );
+    }
+  });
+
+  // Show edit on project
+  $(".editLink").click(function() {
+    if( $(".editForm").is(":visible")) {
+      $(".editForm").hide( );
+    } else {
+      $(".editForm").show( );
+    }
+  });
+
   // Toggle between bugs and tasks
   $("#taskButton").click(function( ) {
-    $("#taskButton").removeClass('btn-primary').addClass('btn-danger');
+    $("#taskButton").removeClass('btn-warning').addClass('btn-danger');
+    $("#taskButton").addClass('issuebutton');
     $(".Tasks").show( );
-    $("#bugButton").removeClass('btn-danger').addClass('btn-primary');
+    $("#bugButton").removeClass('btn-danger').addClass('btn-warning');
+    $("#bugButton").removeClass('issuebutton');
     $(".Bugs").hide( );
   });
 
   $("#bugButton").click(function( ) {
-      $("#bugButton").removeClass('btn-primary').addClass('btn-danger');
+      $("#bugButton").removeClass('btn-warning').addClass('btn-danger');
+      $("#bugButton").addClass('issuebutton');
       $(".Bugs").show( );
-      $("#taskButton").removeClass('btn-danger').addClass('btn-primary');
+      $("#taskButton").removeClass('btn-danger').addClass('btn-warning');
       $(".Tasks").hide( );
+      $("#taskButton").removeClass('issuebutton');
+
   });
 
   // Invite panel (admin)

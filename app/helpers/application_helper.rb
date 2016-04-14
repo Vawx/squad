@@ -53,14 +53,16 @@ module ApplicationHelper
   # converts timestamps time to something usually read
   define_singleton_method :convert_to_readable_time do |long_time|
     long_time_string = long_time.localtime.to_s
+
+    #slice up the created_at time
     year = long_time_string.slice(0, 4)
     month = long_time_string.slice(5..6)
     day = long_time_string.slice(8..9)
-
     hour = long_time_string.slice(11..12).to_i
     minute = long_time_string.slice(14..15)
     second = long_time_string.slice(17..18)
 
+    #start with local time time zone subtraction (PDT = -7)
     local_time_zone = Time.now.getlocal.to_s.slice(20..25)
     subtraction_time_zone = ""
     local_time_zone.split('').each do |c|
@@ -71,11 +73,16 @@ module ApplicationHelper
 
     # Addition cause local_time_zone could be negative
     post_hour = long_time.to_s.slice(11..12).to_i
+
+    #convert from "military" time (24 hour time)
+    if post_hour > 12
+      post_hour -= 12
+    end
     post_hour += subtraction_time_zone.to_i
     ampm = (post_hour > 12) ? "PM" : "AM"
 
     date = month + "/" + day + "/" + year
-    time = hour.to_s + ":" + minute + ":" + second + " " + ampm
+    time = post_hour.to_s + ":" + minute + ":" + second + " " + ampm
     return time + " - " + date
   end
 

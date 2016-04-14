@@ -1,24 +1,27 @@
 
 <div class="row">
-  <div class="form" style="text-align:center;">
-    <h1><%= @project.name %></h1>
-  </div>
-
-  <div class="col-xs-1 col-xs-offset-10">
-    <% if is_admin?(current_user, @project)%>
-      <%= link_to "Admin", profile_project_admin_index_path(current_user.profile, @project), id: "Admin", class: "btn btn-danger" %>
-    <% end %>
+  <div class="form">
+    <div style="text-align:center;">
+      <h1><%= @project.name %></h1>
+    </div>
+    <div style="text-align:right;margin-right:6%;">
+      <% if is_admin?(current_user, @project)%>
+        <%= link_to "Admin", profile_project_admin_index_path(current_user.profile, @project), id: "Admin", class: "btn btn-danger" %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-xs-7 col-xs-offset-1">
     <div class="row" style="margin-bottom:12px;">
-      <button class="btn btn-lg btn-danger" id="bugButton">Bugs</button>
-      <button class="btn btn-lg btn-primary" id="taskButton">Tasks</button>
-      <div style="float:right;">
-        <%= link_to "Add", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %>
+      <button class="btn btn-lg btn-danger issuebutton" id="bugButton">Bugs</button>
+      <button class="btn btn-lg btn-warning" id="taskButton">Tasks</button>
+      <div style="float:right;margin-right:4%;">
+        <%= link_to "Add Issue", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %>
       </div>
+      <hr>
+
     </div>
     <% if ApplicationHelper::issue_of_count(@my_issues, "Bug") == 0 %>
       <div class="Bugs">
@@ -44,16 +47,20 @@
       <%end%>
     <%end%>
   </div>
-  <div class="col-xs-3 col-xs-offset-0">
-    <h2>Users</h2>
-    <% @project.profiles.each do |pr| %>
-      <p class="form">
-        <% if is_admin?(User.find(pr.user_id), @project) %>
-          <span class="danger-text">[Admin]</span> <%=User.find(pr.user_id).email%> (<%= pr.user_name %>)
-        <%else%>
-          <%=User.find(pr.user_id).email%> (<%= pr.user_name %>)
+  <div class="row">
+    <div class="col-xs-3 col-xs-offset-0">
+      <h2><a href="#" class="projectUsersLink" style="margin-left:4%;">>Users</a></h2>
+      <div class="projectUsers" hidden>
+        <% @project.profiles.each do |pr| %>
+          <p class="form">
+            <% if is_admin?(User.find(pr.user_id), @project) %>
+              <span class="danger-text">[Admin]</span> <%=User.find(pr.user_id).email%> (<%= pr.user_name %>)
+            <%else%>
+              <%=User.find(pr.user_id).email%> (<%= pr.user_name %>)
+            <%end%>
+          </p>
         <%end%>
-      </p>
-    <%end%>
+      </div>
+    </div>
   </div>
 </div>

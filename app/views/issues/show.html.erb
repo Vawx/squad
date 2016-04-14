@@ -81,7 +81,14 @@
     </div>
   <%end%>
   <hr>
-  <h4>Content</h4>
+  <a href="#" class="editLink" style="margin-left:1%; margin-top:12px;" id="editLink">> Edit</a>
+  <div class="editForm" hidden>
+    <%= form_for [current_user.profile, @project, @issue] do |f| %>
+      <%= f.text_area :content, value: @issue.content, class: "formarea", id: "formArea" %>
+      <%= f.submit "Edit", class: "btn btn-primary right" %>
+    <%end%>
+  </div>
+  <hr>
   <div class="well" style="margin-top:12px;">
     <p><%= @issue.content.html_safe %></p>
     <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>

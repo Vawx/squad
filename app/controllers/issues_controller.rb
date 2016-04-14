@@ -30,6 +30,12 @@ class IssuesController < ApplicationController
         redirect_to profile_project_path(current_user, Project.find(params[:project_id]))
         return
       end
+    elsif params[:commit] == "Edit"
+      @issue.content = params[:issue][:content]
+      if @issue.save
+        redirect_to profile_project_path(current_user, Project.find(params[:project_id]))
+        return
+      end
     else
       @issue.severity = params[:issue][:severity]
       @profile = Profile.find(params[:profile_id])
@@ -73,6 +79,7 @@ class IssuesController < ApplicationController
     @issue.project_id = @project.id
     @issue.content = ( params[:content_bug].length > 0 ) ? params[:content_bug] : params[:content_task]
     @issue.status = "Open"
+    @issue.author_id = current_user.profile.id
     if @issue.save
       redirect_to profile_project_path(current_user.profile, @project)
     else

@@ -61,12 +61,10 @@
 
   <%= yield %>
 
-  <div class="row">
-    <div class="col-xs-3 col-xs-offset-1">
-      <% if user_signed_in? %>
-        <p>Logged in as <%= link_to current_user.email, edit_user_registration_path %> [<%= current_user.profile.user_name %>].</p>
-      <%end%>
-    </div>
+  <div class="footer">
+    <% if user_signed_in? %>
+      <p>Logged in as <%= link_to current_user.email, edit_user_registration_path %> [<%= current_user.profile.user_name %>].</p>
+    <%end%>
   </div>
 </body>
 </html>

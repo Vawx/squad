@@ -36,4 +36,14 @@ describe 'user sees content at issues page' do
     click_button 'Convert'
     expect(page).to have_content("Test Project")
   end
+  it 'edits issues' do
+    user = login_create_project_and_issue
+    issue = Issue.all[0]
+    visit profile_project_issue_path( user.profile, Project.all[0], Issue.all[0] )
+    page.all(".editForm", :visible => true)
+    fill_in 'formArea', with: "Test Edit"
+    click_button 'Edit'
+    sop
+    expect(page).to have_content("Test Project")
+  end
 end
