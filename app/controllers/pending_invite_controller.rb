@@ -4,8 +4,11 @@ class PendingInviteController < ApplicationController
   end
 
   define_method :edit do
-    pending_project = Project.find(PendingInvite.find(params[:id]).project_id)
+    pending_invite = PendingInvite.find(params[:id])
+    pending_project = Project.find(pending_invite.project_id)
     if params[:format] == "join"
+      pending_invite.destroy
+      pending_invite.save
       current_user.profile.projects << pending_project
     end
     redirect_to profile_project_path(current_user, pending_project)
