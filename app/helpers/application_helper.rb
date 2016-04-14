@@ -116,4 +116,15 @@ module ApplicationHelper
   define_singleton_method :valid_imgur? do |link|
     return ( link.include?("i.") && link.include?("imgur") && link.include?(".com") )
   end
+
+  # get how many of a type of issue there are in array
+  define_singleton_method :issue_of_count do |list, type|
+    count = 0
+    list.each do |l|
+      if l.issue_type == type
+        count += 1
+      end
+    end
+    return count
+  end
 end

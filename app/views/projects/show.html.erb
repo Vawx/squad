@@ -17,8 +17,19 @@
       <button class="btn btn-lg btn-danger" id="bugButton">Bugs</button>
       <button class="btn btn-lg btn-primary" id="taskButton">Tasks</button>
       <div style="float:right;">
-        <%= link_to "Add", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %> </div>
+        <%= link_to "Add", new_profile_project_issue_path(current_user.profile, @project), class: "btn btn-primary", id: "newIssueButton" %>
       </div>
+    </div>
+    <% if ApplicationHelper::issue_of_count(@my_issues, "Bug") == 0 %>
+      <div class="Bugs">
+        <h3>No Bugs</h3>
+      </div>
+    <%end%>
+    <%if ApplicationHelper::issue_of_count(@my_issues, "Task") == 0 %>
+      <div class="Tasks" hidden>
+        <h3>No Tasks</h3>
+      </div>
+    <%end%>
     <% @my_issues.each do |i| %>
       <% if i.status == "Open" %>
         <% if i.issue_type == "Bug" %>

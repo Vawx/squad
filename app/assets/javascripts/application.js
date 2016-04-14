@@ -82,6 +82,15 @@ $().ready(function() {
     }
   });
 
+  // Show convert on issues
+  $(".convertLink").click(function() {
+    if( $(".convertForm").is(":visible")) {
+      $(".convertForm").hide( );
+    } else {
+      $(".convertForm").show( );
+    }
+  });
+
   // Toggle between bugs and tasks
   $("#taskButton").click(function( ) {
     $("#taskButton").removeClass('btn-primary').addClass('btn-danger');

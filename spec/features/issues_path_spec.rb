@@ -28,4 +28,12 @@ describe 'user sees content at issues page' do
     click_button 'Update'
     expect(page).to have_content("Test Project")
   end
+  it 'converts issues' do
+    user = login_create_project_and_issue
+    issue = Issue.all[0]
+    visit profile_project_issue_path( user.profile, Project.all[0], Issue.all[0] )
+    page.all(".convertForm", :visible => true)
+    click_button 'Convert'
+    expect(page).to have_content("Test Project")
+  end
 end

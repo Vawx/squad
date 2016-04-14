@@ -24,6 +24,12 @@ class IssuesController < ApplicationController
       end
     elsif params[:commit] == "Destroy"
       @issue.destroy
+    elsif params[:commit] == "Convert"
+      @issue.issue_type = params[:issue][:issue_type]
+      if @issue.save
+        redirect_to profile_project_path(current_user, Project.find(params[:project_id]))
+        return
+      end
     else
       @issue.severity = params[:issue][:severity]
       @profile = Profile.find(params[:profile_id])
