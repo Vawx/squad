@@ -1,7 +1,7 @@
 <a href="" class="back-to-top"></a>
 
-<div class="col-xs-10 col-xs-offset-1">
-  <h1>[<%= @issue.issue_type %>] <%= ApplicationHelper::limit_chars( @issue.content, 25 ).html_safe %></h1>
+<div class="col-xs-8 col-xs-offset-2">
+  <h2>[<%= @issue.issue_type %>] <%= ApplicationHelper::limit_chars( @issue.content, 35 ).html_safe %></h2>
   <% if @issue.severity == "Very Important" %>
     <h3><span class='label label-danger'><%= @issue.severity %></span></h3>
   <% elsif @issue.severity == "Important" %>
@@ -18,107 +18,110 @@
     <%= link_to "Open", edit_profile_project_issue_path( current_user.profile, @project, @issue ), class: "label label-primary", id: "openIssue", data: {confirm: "Are you sure?" } %>
   <%end%>
   <hr>
-  <h4>Content</h4>
-  <div class="well" style="margin-top:12px;">
-    <p><%= @issue.content.html_safe %></p>
-    <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
-    <% links[0].each do |youtubes|  %>
-      <% if ApplicationHelper::valid_youtube?( youtubes ) %>
-      <div class="scalable scalable-16-9">
-        <div class="scalable-content">
-          <iframe src="<%= youtubes %>"></iframe>
+  <div class="col-xs-8">
+    <h4>Content</h4>
+    <div class="well" style="margin-top:12px;">
+      <p><%= @issue.content.html_safe %></p>
+      <% links = ApplicationHelper::convert_resources_to_links( @issue.resources ) %>
+      <% links[0].each do |youtubes|  %>
+        <% if ApplicationHelper::valid_youtube?( youtubes ) %>
+        <div class="scalable scalable-16-9">
+          <div class="scalable-content">
+            <iframe src="<%= youtubes %>"></iframe>
+          </div>
         </div>
-      </div>
-      <%end%>
-    <% end %>
-    <% links[1].each do |imgur| %>
-      <% if ApplicationHelper::valid_imgur?( imgur ) %>
-        <a href="<%= imgur %>" style="margin-left: 7%;" target="_blank">
-          <img src="<%= imgur %>" width="40%" max-width="40%" />
-        </a>
-      <%end%>
-    <%end%>
-  </div>
-
-  <div class="row" style="margin-left:1%; margin-top:12px;" id="commentForm">
-    <hr>
-    <a href="#" class="commentLink">> Comment</a>
-    <div class="issueComments" hidden>
-      <% @issue.comments.each do |comment| %>
-        <div class="commentframe">
-          <p><%= comment.content %></p>
-          <h6 style="text-align:right;">Author: <%= Profile.find(comment.author_id).user_name %></h6>
-          <h6 style="text-align:right;">Posted On: <%= ApplicationHelper::convert_to_readable_time( comment.created_at ) %></h6>
-        </div>
+        <%end%>
       <% end %>
-      <div style="text-align:right;">
-        <%= link_to "New", new_profile_project_issue_comment_path(current_user.profile, @project, @issue), class: "btn btn-primary" %>
-      </div>
+      <% links[1].each do |imgur| %>
+        <% if ApplicationHelper::valid_imgur?( imgur ) %>
+          <a href="<%= imgur %>" style="margin-left: 7%;" target="_blank">
+            <img src="<%= imgur %>" width="40%" max-width="40%" />
+          </a>
+        <%end%>
+      <%end%>
     </div>
     <hr>
-  </div>
-  <% if current_user.profile.id == @issue.profile_id || is_admin?(current_user, @project)%>
-    <a href="#" class="updateLink" style="margin-left:1%; margin-top:12px;" id="updateLink">> Update</a>
-    <div class="updateForm" hidden>
-      <div style="text-align:right;">
+    <h5 style="text-align:right;">Created At:</h5>
+    <h5 style="text-align:right;"><%= ApplicationHelper::convert_to_readable_time( @issue.created_at ) %></h5>
+    <div style="text-align:right">
+      <% if is_admin?(current_user, @project) %>
         <%= form_for [current_user.profile, @project, @issue] do |f| %>
-          <p> Update severity:
-          <%= f.select :severity, ['Very Important', 'Important', 'Not Important'], { }, class: "issueType" %> </p>
-          <%= f.submit "Update", class: "btn btn-primary" %>
-        <%end%>
-      </div>
-    </div>
-    <hr>
-    <a href="#" class="transferLink" style="margin-left:1%; margin-top:12px;" id="transferLink">> Transfer</a>
-    <div class="transferForm" hidden>
-      <div style="text-align:right;">
-        <% if is_admin?(current_user, @project) %>
-          <p><b>Owned By: <%= Profile.find(@issue.profile_id).user_name %></b></p>
-        <%end%>
-        <%= form_for [current_user.profile, @project, @issue] do |f| %>
-          <p> Transfer To:
-          <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %> </p>
-          <%= f.submit "Transfer", class: "btn btn-primary" %>
+          <%= f.submit "Delete", class: "btn btn-danger", data: {confirm: "This is permanent. Are you sure this Isssue has no use in the future?"} %>
         <% end %>
-        </p>
-      </div>
+      <%end%>
     </div>
-    <hr>
-    <a href="#" class="convertLink" style="margin-left:1%; margin-top:12px;" id="convertLink">> Convert</a>
-    <div class="convertForm" hidden>
-      <div style="text-align:right;">
-        <% if is_admin?(current_user, @project) %>
-          <p><b>Owned By: <%= Profile.find(@issue.profile_id).user_name %></b></p>
-        <%end%>
-        <%= form_for [current_user.profile, @project, @issue] do |f| %>
-          <p> Convert To:
-          <% if @issue.issue_type == "Bug" %>
-            <%= f.select :issue_type, ['Task'], { }, class: "issueType" %> </p>
-          <%else%>
-            <%= f.select :issue_type, ['Bug'], { }, class: "issueType" %> </p>
+  </div>
+  <div class="col-xs-4">
+    <div class="row" style="margin-left:1%; margin-top:12px;" id="commentForm">
+      <hr>
+      <a href="#" class="commentLink">> Comment</a>
+      <div class="issueComments" hidden>
+        <% @issue.comments.each do |comment| %>
+          <div class="commentframe">
+            <p><%= comment.content %></p>
+            <h6 style="text-align:right;">Author: <%= Profile.find(comment.author_id).user_name %></h6>
+            <h6 style="text-align:right;">Posted On: <%= ApplicationHelper::convert_to_readable_time( comment.created_at ) %></h6>
+          </div>
+        <% end %>
+        <div style="text-align:right;">
+          <%= link_to "New", new_profile_project_issue_comment_path(current_user.profile, @project, @issue), class: "btn btn-primary" %>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <% if current_user.profile.id == @issue.profile_id || is_admin?(current_user, @project)%>
+      <a href="#" class="updateLink" style="margin-left:1%; margin-top:12px;" id="updateLink">> Update</a>
+      <div class="updateForm" hidden>
+        <div style="text-align:right;">
+          <%= form_for [current_user.profile, @project, @issue] do |f| %>
+            <p> Update severity:
+            <%= f.select :severity, ['Very Important', 'Important', 'Not Important'], { }, class: "issueType" %> </p>
+            <%= f.submit "Update", class: "btn btn-primary" %>
           <%end%>
-          <%= f.submit "Convert", class: "btn btn-primary" %>
-        <% end %>
-        </p>
+        </div>
       </div>
-    </div>
-  <%end%>
-  <hr>
-  <a href="#" class="editLink" style="margin-left:1%; margin-top:12px;" id="editLink">> Edit</a>
-  <div class="editForm" hidden>
-    <%= form_for [current_user.profile, @project, @issue] do |f| %>
-      <%= f.text_area :content, value: @issue.content, class: "formarea", id: "formArea" %>
-      <%= f.submit "Edit", class: "btn btn-primary right" %>
+      <hr>
+      <a href="#" class="transferLink" style="margin-left:1%; margin-top:12px;" id="transferLink">> Transfer</a>
+      <div class="transferForm" hidden>
+        <div style="text-align:right;">
+          <% if is_admin?(current_user, @project) %>
+            <p><b>Owned By: <%= Profile.find(@issue.profile_id).user_name %></b></p>
+          <%end%>
+          <%= form_for [current_user.profile, @project, @issue] do |f| %>
+            <p> Transfer To:
+            <%= f.select :profile_id, @project.profiles.all.collect{ |p| [p.user_name, p.id ] }, { }, class: "issueType" %> </p>
+            <%= f.submit "Transfer", class: "btn btn-primary" %>
+          <% end %>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <a href="#" class="convertLink" style="margin-left:1%; margin-top:12px;" id="convertLink">> Convert</a>
+      <div class="convertForm" hidden>
+        <div style="text-align:right;">
+          <% if is_admin?(current_user, @project) %>
+            <p><b>Owned By: <%= Profile.find(@issue.profile_id).user_name %></b></p>
+          <%end%>
+          <%= form_for [current_user.profile, @project, @issue] do |f| %>
+            <p> Convert To:
+            <% if @issue.issue_type == "Bug" %>
+              <%= f.select :issue_type, ['Task'], { }, class: "issueType" %> </p>
+            <%else%>
+              <%= f.select :issue_type, ['Bug'], { }, class: "issueType" %> </p>
+            <%end%>
+            <%= f.submit "Convert", class: "btn btn-primary" %>
+          <% end %>
+          </p>
+        </div>
+      </div>
     <%end%>
-  </div>
-  <hr>
-  <h5 style="text-align:right;">Created At:</h5>
-  <h5 style="text-align:right;"><%= ApplicationHelper::convert_to_readable_time( @issue.created_at ) %></h5>
-  <div style="text-align:right">
-    <% if is_admin?(current_user, @project) %>
+    <hr>
+    <a href="#" class="editLink" style="margin-left:1%; margin-top:12px;" id="editLink">> Edit</a>
+    <div class="editForm" hidden>
       <%= form_for [current_user.profile, @project, @issue] do |f| %>
-        <%= f.submit "Delete", class: "btn btn-danger", data: {confirm: "This is permanent. Are you sure this Isssue has no use in the future?"} %>
-      <% end %>
-    <%end%>
+        <%= f.text_area :content, value: @issue.content, class: "formareaScalable", id: "formArea" %>
+        <%= f.submit "Edit", class: "btn btn-primary right" %>
+      <%end%>
+    </div>
   </div>
 </div>
