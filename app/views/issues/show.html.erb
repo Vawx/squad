@@ -56,9 +56,9 @@
       <hr>
       <a href="#" class="commentLink">> Comment</a>
       <div class="issueComments" hidden>
-        <% @issue.comments.each do |comment| %>
+        <% @issue.comments.sort_by(&:created_at).reverse.each do |comment| %>
           <div class="commentframe">
-            <p><%= comment.content %></p>
+            <p><%= comment.content.html_safe %></p>
             <h6 style="text-align:right;">Author: <%= Profile.find(comment.author_id).user_name %></h6>
             <h6 style="text-align:right;">Posted On: <%= ApplicationHelper::convert_to_readable_time( comment.created_at ) %></h6>
           </div>

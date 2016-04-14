@@ -1,7 +1,7 @@
 <%= link_to profile_project_issue_path(current_user.profile, @project, object), class: "issueFrame" do %>
   <% if object.severity == "Very Important" %>
     <div class="issue_form_very_important">
-      <h3><%= strip_tags( ApplicationHelper::limit_chars( object.content, 55 ).html_safe ) %></h3>
+      <h3><%= strip_tags( ApplicationHelper::limit_chars( object.content, 115 ).html_safe ) %></h3>
       <div class="">
         <h5 style="text-align:right;">Author: <%= Profile.find(object.author_id).user_name %> </h5>
         <h5 style="text-align:right;">Issue: <%= object.id %> </h5>
@@ -10,7 +10,7 @@
     </div>
   <%elsif object.severity == "Important" %>
     <div class="issue_form_important">
-      <h3><%= strip_tags( ApplicationHelper::limit_chars( object.content, 55 ) ) %></h3>
+      <h3><%= strip_tags( ApplicationHelper::limit_chars( object.content, 115 ) ) %></h3>
       <div class="">
         <h5 style="text-align:right;">Author: <%= Profile.find(object.author_id).user_name %> </h5>
         <h5 style="text-align:right;">Issue: <%= object.id %> </h5>
@@ -19,7 +19,7 @@
     </div>
   <%elsif object.severity == "Not Important" %>
     <div class="issue_form_not_important">
-      <h3><%= strip_tags( ApplicationHelper::limit_chars( object.content, 55 ) ) %></h3>
+      <h3><%= strip_tags( ApplicationHelper::limit_chars( object.content, 115 ) ) %></h3>
       <div class="">
         <h5 style="text-align:right;">Author: <%= Profile.find(object.author_id).user_name %> </h5>
         <h5 style="text-align:right;">Issue: <%= object.id %> </h5>

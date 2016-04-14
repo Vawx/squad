@@ -43,7 +43,6 @@ describe 'user sees content at issues page' do
     page.all(".editForm", :visible => true)
     fill_in 'formArea', with: "Test Edit"
     click_button 'Edit'
-    sop
     expect(page).to have_content("Test Project")
   end
 end
