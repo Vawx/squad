@@ -24,6 +24,14 @@ define_method :login do
   return user
 end
 
+define_method :login_existing do |email|
+  visit root_path
+  click_link "login"
+  fill_in "user_email", with: email
+  fill_in "user_password", with: "passwordsz"
+  click_button "Log in"
+end
+
 define_method :logout do
   visit root_path
   click_link 'logout'
@@ -32,6 +40,19 @@ end
 
 define_method :sop do
   save_and_open_page
+end
+
+define_method :login_create_project_send_invite do
+  user = login_custom("testing@testing.com")
+  logout
+  user = login_create_project
+  visit profile_project_path( user.profile, Project.all[0])
+  click_link 'Admin'
+  fill_in 'invite_address', with: "testing@testing.com"
+  click_button "Send Invite"
+  logout
+  login_existing "testing@testing.com"
+  visit pending_invite_index_path
 end
 
 define_method :login_create_project do

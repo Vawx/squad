@@ -50,7 +50,7 @@
               <li><%= link_to "Logout", destroy_user_session_path, method: :delete, id: "logout"%></li>
               <% else %>
                 <li><%= link_to "Sign up", new_user_registration_path %></li>
-                <li><%= link_to "Login", new_user_session_path %></li>
+                <li><%= link_to "Login", new_user_session_path, id: "login"%></li>
               <% end %>
             </ul>
           </div>
