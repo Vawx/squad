@@ -17,7 +17,7 @@ class AdminController < ApplicationController
       alreadyExists = false
       if email != current_user.email
         PendingInvite.all.each do |pi|
-          if pi.invite_email == email && pi.sent_email == current_user.email
+          if pi.invite_email == email && pi.invite_email == current_user.email
             alreadyExists = true
           end
         end
