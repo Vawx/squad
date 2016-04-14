@@ -12,6 +12,16 @@ define_method :login_custom do |email|
   return user
 end
 
+define_method :send_invite do
+  fill_in 'projectName', with: "TestProject"
+  click_button 'Create'
+  click_link 'Admin'
+  within("//div[@id='form']") do
+    fill_in 'invite_address', with: "test@testing.com"
+  end
+  click_button 'Send Invite'
+end
+
 define_method :login do
   user = create(:user)
   random = Random.new
