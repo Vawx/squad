@@ -4,7 +4,7 @@ class CreatePendingInvites < ActiveRecord::Migration
       t.column :invite_email, :string
       t.column :from_email, :string
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
   end
 end
