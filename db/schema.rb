@@ -37,10 +37,12 @@ ActiveRecord::Schema.define(version: 20160413234627) do
   end
 
   create_table "pending_invites", force: :cascade do |t|
-    t.integer "project_id"
-    t.string  "invite_email"
-    t.string  "sent_email"
-    t.integer "admin_id"
+    t.string   "invite_email"
+    t.string   "from_email"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "project_id"
+    t.integer  "admin_id"
   end
 
   create_table "profiles", force: :cascade do |t|
