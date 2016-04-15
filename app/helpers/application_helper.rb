@@ -73,7 +73,7 @@ module ApplicationHelper
 
     date = month + "/" + day + "/" + year
     time = post_hour.to_s + ":" + minute + ":" + second + " " + ampm
-    return time + " - " + date
+    return date
   end
 
   # take rources in db and converts the list(s) into links
