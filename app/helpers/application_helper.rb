@@ -62,27 +62,10 @@ module ApplicationHelper
     minute = long_time_string.slice(14..15)
     second = long_time_string.slice(17..18)
 
-    #start with local time time zone subtraction (PDT = -7)
-    local_time_zone = Time.now.getlocal.to_s.slice(20..25)
-    subtraction_time_zone = ""
-    local_time_zone.split('').each do |c|
-      if c != "0"
-        subtraction_time_zone += c
-      end
-    end
-
-    # Addition cause local_time_zone could be negative
-    post_hour = long_time.to_s.slice(11..12).to_i
-
-    #convert from "military" time (24 hour time)
-    if post_hour > 12
-      post_hour -= 12
-    end
-    post_hour += subtraction_time_zone.to_i
-    ampm = (post_hour > 12) ? "PM" : "AM"
+    ampm = (hour.to_i > 12) ? "PM" : "AM"
 
     date = month + "/" + day + "/" + year
-    time = post_hour.to_s + ":" + minute + ":" + second + " " + ampm
+    time = hour.to_s + ":" + minute + ":" + second + " " + ampm
     return time + " - " + date
   end
 
